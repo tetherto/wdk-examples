@@ -1,0 +1,43 @@
+{
+  "name": "@tetherto/wdk-examples",
+  "version": "1.0.0",
+  "description": "Runnable code examples for WDK (Wallet Development Kit) SDK modules",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+
+    "example:wallet-evm:create-wallet": "tsx wallet-evm/create-wallet.ts",
+    "example:wallet-evm:manage-accounts": "tsx wallet-evm/manage-accounts.ts",
+    "example:wallet-evm:check-balances": "tsx wallet-evm/check-balances.ts",
+    "example:wallet-evm:read-only-account": "tsx wallet-evm/read-only-account.ts",
+    "example:wallet-evm:send-transaction": "tsx wallet-evm/send-transaction.ts",
+    "example:wallet-evm:token-transfer": "tsx wallet-evm/token-transfer.ts",
+    "example:wallet-evm:sign-verify-message": "tsx wallet-evm/sign-verify-message.ts",
+    "example:wallet-evm:fee-management": "tsx wallet-evm/fee-management.ts",
+    "example:wallet-evm:memory-management": "tsx wallet-evm/memory-management.ts",
+    "validate:wallet-evm": "tsx wallet-evm/create-wallet.ts && tsx wallet-evm/manage-accounts.ts && tsx wallet-evm/check-balances.ts && tsx wallet-evm/read-only-account.ts && tsx wallet-evm/send-transaction.ts && tsx wallet-evm/token-transfer.ts && tsx wallet-evm/sign-verify-message.ts && tsx wallet-evm/fee-management.ts && tsx wallet-evm/memory-management.ts",
+
+    "example:wallet-evm-erc-4337:create-wallet": "tsx wallet-evm-erc-4337/create-wallet.ts",
+    "example:wallet-evm-erc-4337:manage-accounts": "tsx wallet-evm-erc-4337/manage-accounts.ts",
+    "example:wallet-evm-erc-4337:check-balances": "tsx wallet-evm-erc-4337/check-balances.ts",
+    "example:wallet-evm-erc-4337:read-only-account": "tsx wallet-evm-erc-4337/read-only-account.ts",
+    "example:wallet-evm-erc-4337:send-transaction": "tsx wallet-evm-erc-4337/send-transaction.ts",
+    "example:wallet-evm-erc-4337:token-transfer": "tsx wallet-evm-erc-4337/token-transfer.ts",
+    "example:wallet-evm-erc-4337:sign-verify-message": "tsx wallet-evm-erc-4337/sign-verify-message.ts",
+    "example:wallet-evm-erc-4337:fee-management": "tsx wallet-evm-erc-4337/fee-management.ts",
+    "example:wallet-evm-erc-4337:memory-management": "tsx wallet-evm-erc-4337/memory-management.ts",
+    "validate:wallet-evm-erc-4337": "tsx wallet-evm-erc-4337/create-wallet.ts && tsx wallet-evm-erc-4337/manage-accounts.ts && tsx wallet-evm-erc-4337/check-balances.ts && tsx wallet-evm-erc-4337/read-only-account.ts && tsx wallet-evm-erc-4337/send-transaction.ts && tsx wallet-evm-erc-4337/token-transfer.ts && tsx wallet-evm-erc-4337/sign-verify-message.ts && tsx wallet-evm-erc-4337/fee-management.ts && tsx wallet-evm-erc-4337/memory-management.ts",
+
+    "validate:all": "npm run validate:wallet-evm && npm run validate:wallet-evm-erc-4337"
+  },
+  "dependencies": {
+    "@tetherto/wdk-wallet-evm": "latest",
+    "@tetherto/wdk-wallet-evm-erc-4337": "latest",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}
