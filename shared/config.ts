@@ -45,3 +45,66 @@ export function loadErc4337Config() {
     tokenContract: requireEnv('ERC4337_TOKEN_CONTRACT'),
   }
 }
+
+export function loadSolanaConfig() {
+  return {
+    seedPhrase: requireEnv('SEED_PHRASE'),
+    rpcUrl: requireEnv('SOLANA_RPC_URL'),
+    commitment: 'confirmed' as const,
+    transferMaxFee: 10_000_000n,
+    recipientAddress: requireEnv('SOLANA_RECIPIENT_ADDRESS'),
+    tokenMint: requireEnv('SOLANA_TOKEN_MINT'),
+  }
+}
+
+export function loadTonConfig() {
+  return {
+    seedPhrase: requireEnv('SEED_PHRASE'),
+    tonClient: {
+      url: requireEnv('TON_TONCENTER_URL'),
+      secretKey: optionalEnv('TON_TONCENTER_API_KEY'),
+    },
+    transferMaxFee: 1_000_000_000n,
+    recipientAddress: requireEnv('TON_RECIPIENT_ADDRESS'),
+    jettonAddress: requireEnv('TON_JETTON_ADDRESS'),
+    readOnlyPublicKey: requireEnv('TON_READONLY_PUBLIC_KEY'),
+  }
+}
+
+export function loadTronConfig() {
+  return {
+    seedPhrase: requireEnv('SEED_PHRASE'),
+    provider: requireEnv('TRON_PROVIDER_URL'),
+    transferMaxFee: 10_000_000n,
+    recipientAddress: requireEnv('TRON_RECIPIENT_ADDRESS'),
+    tokenContract: requireEnv('TRON_TRC20_CONTRACT'),
+  }
+}
+
+export function loadWdkConfig() {
+  const solana = loadSolanaConfig()
+  const ton = loadTonConfig()
+  const tron = loadTronConfig()
+
+  return {
+    seedPhrase: requireEnv('SEED_PHRASE'),
+    wallets: {
+      solana: {
+        rpcUrl: solana.rpcUrl,
+        commitment: solana.commitment,
+        transferMaxFee: solana.transferMaxFee,
+      },
+      ton: {
+        tonClient: ton.tonClient,
+        transferMaxFee: ton.transferMaxFee,
+      },
+      tron: {
+        provider: tron.provider,
+        transferMaxFee: tron.transferMaxFee,
+      },
+    },
+    solana,
+    ton,
+    tron,
+  }
+}
