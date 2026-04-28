@@ -6,7 +6,6 @@
   "type": "module",
   "scripts": {
     "typecheck": "tsc --noEmit",
-
     "example:wdk:getting-started": "tsx wdk/getting-started.ts",
     "example:wdk:register-wallets": "tsx wdk/register-wallets.ts",
     "example:wdk:manage-accounts": "tsx wdk/manage-accounts.ts",
@@ -14,7 +13,6 @@
     "example:wdk:middleware": "tsx wdk/middleware.ts",
     "example:wdk:error-handling": "tsx wdk/error-handling.ts",
     "validate:wdk": "tsx wdk/getting-started.ts && tsx wdk/register-wallets.ts && tsx wdk/manage-accounts.ts && tsx wdk/send-transactions.ts && tsx wdk/middleware.ts && tsx wdk/error-handling.ts",
-
     "example:wallet-evm:create-wallet": "tsx wallet-evm/create-wallet.ts",
     "example:wallet-evm:manage-accounts": "tsx wallet-evm/manage-accounts.ts",
     "example:wallet-evm:check-balances": "tsx wallet-evm/check-balances.ts",
@@ -25,7 +23,6 @@
     "example:wallet-evm:fee-management": "tsx wallet-evm/fee-management.ts",
     "example:wallet-evm:memory-management": "tsx wallet-evm/memory-management.ts",
     "validate:wallet-evm": "tsx wallet-evm/create-wallet.ts && tsx wallet-evm/manage-accounts.ts && tsx wallet-evm/check-balances.ts && tsx wallet-evm/read-only-account.ts && tsx wallet-evm/send-transaction.ts && tsx wallet-evm/token-transfer.ts && tsx wallet-evm/sign-verify-message.ts && tsx wallet-evm/fee-management.ts && tsx wallet-evm/memory-management.ts",
-
     "example:wallet-evm-erc-4337:create-wallet": "tsx wallet-evm-erc-4337/create-wallet.ts",
     "example:wallet-evm-erc-4337:manage-accounts": "tsx wallet-evm-erc-4337/manage-accounts.ts",
     "example:wallet-evm-erc-4337:check-balances": "tsx wallet-evm-erc-4337/check-balances.ts",
@@ -36,7 +33,6 @@
     "example:wallet-evm-erc-4337:fee-management": "tsx wallet-evm-erc-4337/fee-management.ts",
     "example:wallet-evm-erc-4337:memory-management": "tsx wallet-evm-erc-4337/memory-management.ts",
     "validate:wallet-evm-erc-4337": "tsx wallet-evm-erc-4337/create-wallet.ts && tsx wallet-evm-erc-4337/manage-accounts.ts && tsx wallet-evm-erc-4337/check-balances.ts && tsx wallet-evm-erc-4337/read-only-account.ts && tsx wallet-evm-erc-4337/send-transaction.ts && tsx wallet-evm-erc-4337/token-transfer.ts && tsx wallet-evm-erc-4337/sign-verify-message.ts && tsx wallet-evm-erc-4337/fee-management.ts && tsx wallet-evm-erc-4337/memory-management.ts",
-
     "example:wallet-solana:create-wallet": "tsx wallet-solana/create-wallet.ts",
     "example:wallet-solana:manage-accounts": "tsx wallet-solana/manage-accounts.ts",
     "example:wallet-solana:check-balances": "tsx wallet-solana/check-balances.ts",
@@ -47,7 +43,6 @@
     "example:wallet-solana:fee-management": "tsx wallet-solana/fee-management.ts",
     "example:wallet-solana:memory-management": "tsx wallet-solana/memory-management.ts",
     "validate:wallet-solana": "tsx wallet-solana/create-wallet.ts && tsx wallet-solana/manage-accounts.ts && tsx wallet-solana/check-balances.ts && tsx wallet-solana/read-only-account.ts && tsx wallet-solana/send-transaction.ts && tsx wallet-solana/token-transfer.ts && tsx wallet-solana/sign-verify-message.ts && tsx wallet-solana/fee-management.ts && tsx wallet-solana/memory-management.ts",
-
     "example:wallet-ton:create-wallet": "tsx wallet-ton/create-wallet.ts",
     "example:wallet-ton:manage-accounts": "tsx wallet-ton/manage-accounts.ts",
     "example:wallet-ton:check-balances": "tsx wallet-ton/check-balances.ts",
@@ -58,7 +53,6 @@
     "example:wallet-ton:fee-management": "tsx wallet-ton/fee-management.ts",
     "example:wallet-ton:memory-management": "tsx wallet-ton/memory-management.ts",
     "validate:wallet-ton": "tsx wallet-ton/create-wallet.ts && tsx wallet-ton/manage-accounts.ts && tsx wallet-ton/check-balances.ts && tsx wallet-ton/read-only-account.ts && tsx wallet-ton/send-transaction.ts && tsx wallet-ton/token-transfer.ts && tsx wallet-ton/sign-verify-message.ts && tsx wallet-ton/fee-management.ts && tsx wallet-ton/memory-management.ts",
-
     "example:wallet-tron:create-wallet": "tsx wallet-tron/create-wallet.ts",
     "example:wallet-tron:manage-accounts": "tsx wallet-tron/manage-accounts.ts",
     "example:wallet-tron:check-balances": "tsx wallet-tron/check-balances.ts",
@@ -69,11 +63,25 @@
     "example:wallet-tron:fee-management": "tsx wallet-tron/fee-management.ts",
     "example:wallet-tron:memory-management": "tsx wallet-tron/memory-management.ts",
     "validate:wallet-tron": "tsx wallet-tron/create-wallet.ts && tsx wallet-tron/manage-accounts.ts && tsx wallet-tron/check-balances.ts && tsx wallet-tron/read-only-account.ts && tsx wallet-tron/send-transaction.ts && tsx wallet-tron/token-transfer.ts && tsx wallet-tron/sign-verify-message.ts && tsx wallet-tron/fee-management.ts && tsx wallet-tron/memory-management.ts",
-
-    "validate:all": "npm run validate:wdk && npm run validate:wallet-evm && npm run validate:wallet-evm-erc-4337 && npm run validate:wallet-solana && npm run validate:wallet-ton && npm run validate:wallet-tron"
+    "example:mcp-toolkit:basic-server": "tsx mcp-toolkit/basic-server.ts",
+    "example:mcp-toolkit:langchain-agent": "tsx mcp-toolkit/langchain/typescript/agent.ts",
+    "validate:mcp-toolkit": "npm run typecheck",
+    "validate:all": "npm run validate:wdk && npm run validate:wallet-evm && npm run validate:wallet-evm-erc-4337 && npm run validate:wallet-solana && npm run validate:wallet-ton && npm run validate:wallet-tron && npm run validate:mcp-toolkit"
   },
   "dependencies": {
+    "@langchain/anthropic": "^1.3.27",
+    "@langchain/core": "^1.1.41",
+    "@langchain/langgraph": "^1.2.9",
+    "@langchain/mcp-adapters": "^1.1.3",
+    "@langchain/openai": "^1.4.4",
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "@tetherto/wdk": "latest",
+    "@tetherto/wdk-mcp-toolkit": "git+https://github.com/tetherto/wdk-mcp-toolkit.git",
+    "@tetherto/wdk-protocol-bridge-usdt0-evm": "^1.0.0-beta.3",
+    "@tetherto/wdk-protocol-fiat-moonpay": "^1.0.0-beta.2",
+    "@tetherto/wdk-protocol-lending-aave-evm": "^1.0.0-beta.4",
+    "@tetherto/wdk-protocol-swap-velora-evm": "^1.0.0-beta.4",
+    "@tetherto/wdk-wallet-btc": "^1.0.0-beta.8",
     "@tetherto/wdk-wallet-evm": "latest",
     "@tetherto/wdk-wallet-evm-erc-4337": "latest",
     "@tetherto/wdk-wallet-solana": "latest",
