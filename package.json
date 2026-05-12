@@ -66,7 +66,11 @@
     "example:mcp-toolkit:basic-server": "tsx mcp-toolkit/basic-server.ts",
     "example:mcp-toolkit:langchain-agent": "tsx mcp-toolkit/langchain/typescript/agent.ts",
     "validate:mcp-toolkit": "npm run typecheck",
-    "validate:all": "npm run validate:wdk && npm run validate:wallet-evm && npm run validate:wallet-evm-erc-4337 && npm run validate:wallet-solana && npm run validate:wallet-ton && npm run validate:wallet-tron && npm run validate:mcp-toolkit"
+    "example:wallet-auth:condition-check": "tsx wallet-auth/condition-check.ts",
+    "example:wallet-auth:condition-stack": "tsx wallet-auth/condition-stack.ts",
+    "example:wallet-auth:verify-attestation": "tsx wallet-auth/verify-attestation.ts",
+    "validate:wallet-auth": "tsx wallet-auth/condition-check.ts && tsx wallet-auth/condition-stack.ts && tsx wallet-auth/verify-attestation.ts",
+    "validate:all": "npm run validate:wdk && npm run validate:wallet-evm && npm run validate:wallet-evm-erc-4337 && npm run validate:wallet-solana && npm run validate:wallet-ton && npm run validate:wallet-tron && npm run validate:mcp-toolkit && npm run validate:wallet-auth"
   },
   "dependencies": {
     "@langchain/anthropic": "^1.3.27",
@@ -87,7 +91,8 @@
     "@tetherto/wdk-wallet-solana": "latest",
     "@tetherto/wdk-wallet-ton": "latest",
     "@tetherto/wdk-wallet-tron": "latest",
-    "dotenv": "^16.4.7"
+    "dotenv": "^16.4.7",
+    "jose": "^5.9.6"
   },
   "devDependencies": {
     "tsx": "^4.19.0",

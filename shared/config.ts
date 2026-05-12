@@ -108,3 +108,11 @@ export function loadWdkConfig() {
     tron,
   }
 }
+
+export function loadWalletAuthConfig() {
+  return {
+    verifierUrl: process.env.WALLET_AUTH_VERIFIER_URL || 'https://api.insumermodel.com',
+    apiKey: requireEnv('WALLET_AUTH_API_KEY'),
+    testWallet: process.env.WALLET_AUTH_TEST_WALLET || '0x1234567890abcdef1234567890abcdef12345678',
+  }
+}
