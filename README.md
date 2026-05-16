@@ -16,6 +16,7 @@ Each folder contains small runnable examples for one WDK package or integration.
 | [wallet-tron](./wallet-tron/) | `@tetherto/wdk-wallet-tron` | TRON wallets, balances, transactions, TRC20 tokens, signing, and fees |
 | [mcp-toolkit](./mcp-toolkit/) | `@tetherto/wdk-mcp-toolkit` | MCP server and LangChain agent examples for WDK tools |
 | [walletconnect-walletkit](./walletconnect-walletkit/) | `@reown/walletkit` + WDK | Self-contained dApp ↔ wallet signing flow |
+| [browser-extension-sovereign-wallet](./browser-extension-sovereign-wallet/) | Multi-package | Chrome MV3 browser extension starter (EVM, Bitcoin, Solana) |
 
 ## Run
 
