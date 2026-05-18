@@ -108,3 +108,12 @@ export function loadWdkConfig() {
     tron,
   }
 }
+
+export function loadBermudaConfig() {
+  return {
+    seedPhrase: requireEnv('SEED_PHRASE'),
+    rpcUrl: requireEnv('PLASMA_TESTNET_RPC_URL'),
+    tokenContract: requireEnv('WXPL_ADDRESS'),
+    recipientAddress: requireEnv('EVM_RECIPIENT_ADDRESS'),
+  }
+}
