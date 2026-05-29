@@ -9,6 +9,8 @@ Examples for the [`@tetherto/wdk-wallet-evm-erc-4337`](https://github.com/tether
 | [Check Balances](./check-balances.ts) | Query native token and ERC-20 balances for smart accounts |
 | [Read-Only Account](./read-only-account.ts) | Monitor smart account balances and estimate fees without a private key |
 | [Send Transaction](./send-transaction.ts) | Send transactions via UserOperations through the bundler |
+| [Send Transaction with Gas Overrides](./send-transaction-gas-override.ts) | Override UserOperation gas limits and the EIP-1559 fee pair per-call |
+| [Sign Transaction](./sign-transaction.ts) | Build and sign a UserOperation locally without broadcasting it |
 | [Token Transfer](./token-transfer.ts) | Transfer ERC-20 tokens via UserOperations with gas mode overrides |
 | [Sign & Verify Message](./sign-verify-message.ts) | Sign messages and verify signatures with ERC-4337 accounts |
 | [Fee Management](./fee-management.ts) | Retrieve current bundler fee rates |
