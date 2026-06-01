@@ -85,7 +85,7 @@
     "@tetherto/wdk-protocol-swap-velora-evm": "^1.0.0-beta.4",
     "@tetherto/wdk-wallet-btc": "^1.0.0-beta.8",
     "@tetherto/wdk-wallet-evm": "latest",
-    "@tetherto/wdk-wallet-evm-erc-4337": "git+https://github.com/tetherto/wdk-wallet-evm-erc-4337.git#main",
+    "@tetherto/wdk-wallet-evm-erc-4337": "latest",
     "@tetherto/wdk-wallet-solana": "latest",
     "@tetherto/wdk-wallet-ton": "latest",
     "@tetherto/wdk-wallet-tron": "latest",
