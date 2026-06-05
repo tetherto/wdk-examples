@@ -1,0 +1,51 @@
+{
+  "name": "wdk-react-native-showcase",
+  "main": "expo-router/entry",
+  "description": "Showcase application for WDK (Wallet Development Kit) features in React Native",
+  "scripts": {
+    "postinstall": "wdk-worklet-bundler generate",
+    "start": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
+  },
+  "author": "Tether",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@tetherto/wdk": "^1.0.0-beta.5",
+    "@tetherto/wdk-react-native-core": "^1.0.0-beta.10",
+    "@tetherto/wdk-uikit-react-native": "^1.0.0-beta.2",
+    "@tetherto/wdk-wallet-btc": "^1.0.0-beta.8",
+    "@tetherto/wdk-wallet-evm-erc-4337": "^1.0.0-beta.6",
+    "@tetherto/wdk-wallet-spark": "^1.0.0-beta.17",
+    "@tetherto/wdk-wallet-tron-gasfree": "^1.0.0-beta.6",
+    "bare-node-runtime": "^1.2.0",
+    "bufferutil": "^4.1.0",
+    "expo": "^55.0.23",
+    "expo-build-properties": "^55.0.13",
+    "expo-constants": "^55.0.16",
+    "expo-linking": "^55.0.15",
+    "expo-router": "^55.0.14",
+    "expo-splash-screen": "~55.0.20",
+    "expo-status-bar": "~55.0.6",
+    "expo-system-ui": "^55.0.17",
+    "ledger-bitcoin": "^0.2.3",
+    "lucide-react-native": "^1.14.0",
+    "react": "^19.1.4",
+    "react-dom": "^19.1.4",
+    "react-native": "^0.83.6",
+    "react-native-gesture-handler": "~2.28.0",
+    "react-native-safe-area-context": "^5.4.0",
+    "react-native-svg": "^15.15.1",
+    "sonner-native": "^0.21.1",
+    "utf-8-validate": "^5.0.10",
+    "bignumber.js": "^11.0.0"
+  },
+  "devDependencies": {
+    "@tetherto/wdk-worklet-bundler": "^1.0.0-beta.3",
+    "@types/react": "~19.1.10",
+    "babel-plugin-module-resolver": "^5.0.2",
+    "prettier": "^3.3.3",
+    "prettier-config-standard": "^7.0.0",
+    "typescript": "^5.3.3"
+  }
+}
