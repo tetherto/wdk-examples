@@ -9,6 +9,7 @@ Each folder contains small runnable examples for one WDK package or integration.
 | Folder | Package | Description |
 |--------|---------|-------------|
 | [wdk](./wdk/) | `@tetherto/wdk` | Core WDK setup, wallet registration, middleware, and transaction flow |
+| [browser-extension-starter](./browser-extension-starter/) | `@tetherto/wdk` + wallet modules | Browser extension wallet starter with WXT, React, background WDK execution, popup UX, and dApp approvals |
 | [wallet-evm](./wallet-evm/) | `@tetherto/wdk-wallet-evm` | EVM wallets, balances, transactions, token transfers, signing, and fees |
 | [wallet-evm-erc-4337](./wallet-evm-erc-4337/) | `@tetherto/wdk-wallet-evm-erc-4337` | ERC-4337 smart accounts, UserOperations, paymasters, and bundlers |
 | [wallet-solana](./wallet-solana/) | `@tetherto/wdk-wallet-solana` | Solana wallets, balances, transactions, SPL tokens, signing, and fees |
