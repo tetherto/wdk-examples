@@ -1,4 +1,8 @@
-import 'dotenv/config'
+import dotenv from 'dotenv'
+import { resolve, dirname } from 'path'
+import { fileURLToPath } from 'url'
+
+dotenv.config({ path: resolve(dirname(fileURLToPath(import.meta.url)), '../.env') })
 
 export function requireEnv(key: string): string {
   const value = process.env[key]

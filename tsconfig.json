@@ -12,15 +12,5 @@
     "outDir": "dist",
     "rootDir": "."
   },
-  "include": [
-    "shared/**/*.ts",
-    "wdk/**/*.ts",
-    "wallet-evm/**/*.ts",
-    "wallet-evm-erc-4337/**/*.ts",
-    "wallet-solana/**/*.ts",
-    "wallet-ton/**/*.ts",
-    "wallet-tron/**/*.ts",
-    "mcp-toolkit/**/*.ts"
-  ],
   "exclude": ["node_modules", "dist"]
 }
