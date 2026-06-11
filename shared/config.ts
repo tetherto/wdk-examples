@@ -85,6 +85,15 @@ export function loadTronConfig() {
   }
 }
 
+export function loadWalletConnectConfig() {
+  return {
+    seedPhrase: requireEnv('SEED_PHRASE'),
+    projectId: requireEnv('WALLETCONNECT_PROJECT_ID'),
+    sepoliaRpcUrl: requireEnv('WALLETCONNECT_SEPOLIA_RPC_URL'),
+    solanaDevnetRpcUrl: requireEnv('WALLETCONNECT_SOLANA_DEVNET_RPC_URL'),
+  }
+}
+
 export function loadWdkConfig() {
   const solana = loadSolanaConfig()
   const ton = loadTonConfig()
