@@ -13,7 +13,7 @@ import WalletManagerSolana from '@tetherto/wdk-wallet-solana'
 import { Core } from '@walletconnect/core'
 import { WalletKit, IWalletKit } from '@reown/walletkit'
 import { buildApprovedNamespaces } from '@walletconnect/utils'
-import { Wallet as EthersWallet, getBytes, hexlify, toUtf8String } from 'ethers'
+import { getBytes, toUtf8String } from 'ethers'
 import bs58 from 'bs58'
 
 import { logResult } from '../shared/helpers.js'
@@ -28,7 +28,14 @@ export const SOLANA_METHODS = ['solana_signMessage']
 
 type WdkAccount = {
   sign: (message: string) => Promise<string>
-  keyPair: { privateKey: unknown }
+}
+
+type WdkEvmAccount = WdkAccount & {
+  signTypedData: (typedData: {
+    domain: Record<string, unknown>
+    types: Record<string, unknown>
+    message: Record<string, unknown>
+  }) => Promise<string>
 }
 
 export type WalletConfig = {
@@ -39,6 +46,7 @@ export type WalletConfig = {
 }
 
 export type WalletHandle = {
+  wdk: WDK
   walletkit: IWalletKit
   evmAddress: string
   solanaAddress: string
@@ -123,7 +131,7 @@ export async function setupWallet(config: WalletConfig): Promise<WalletHandle> {
     }
   })
 
-  return { walletkit, evmAddress, solanaAddress }
+  return { wdk, walletkit, evmAddress, solanaAddress }
 }
 
 async function signEvm(
@@ -139,14 +147,13 @@ async function signEvm(
     case 'eth_signTypedData_v4': {
       const raw = arr[1]
       const typed = typeof raw === 'string' ? JSON.parse(raw) : (raw as Record<string, unknown>)
-      const { EIP712Domain: _ignore, ...types } = (typed as { types: Record<string, unknown> }).types
-      const priv = account.keyPair.privateKey
-      const wallet = new EthersWallet(typeof priv === 'string' ? priv : hexlify(priv as Uint8Array))
       const t = typed as {
-        domain: Parameters<EthersWallet['signTypedData']>[0]
+        domain: Record<string, unknown>
+        types: Record<string, unknown>
         message: Record<string, unknown>
       }
-      return wallet.signTypedData(t.domain, types as Parameters<EthersWallet['signTypedData']>[1], t.message)
+      const { EIP712Domain: _ignore, ...types } = t.types
+      return (account as WdkEvmAccount).signTypedData({ domain: t.domain, types, message: t.message })
     }
     default:
       throw new Error(`EVM method not supported: ${method}`)

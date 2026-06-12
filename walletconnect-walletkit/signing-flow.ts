@@ -23,7 +23,7 @@ async function main() {
   const config = loadWalletConnectConfig()
 
   logSection('Setup Wallet')
-  const { walletkit, evmAddress, solanaAddress } = await setupWallet(config)
+  const { wdk, walletkit, evmAddress, solanaAddress } = await setupWallet(config)
   logResult('Derived Addresses', { evm: evmAddress, solana: solanaAddress })
 
   logSection('Setup dApp')
@@ -144,6 +144,9 @@ async function main() {
     reason: { code: 6000, message: 'Demo complete' },
   })
   logResult('Disconnected', { topic: session.topic })
+
+  // Wipe key material from memory once the session is over.
+  wdk.dispose()
 
   console.log('\nDone.')
   process.exit(0)
