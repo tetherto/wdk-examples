@@ -8,8 +8,8 @@
  */
 
 import WDK from '@tetherto/wdk'
-import WalletManagerEvm from '@tetherto/wdk-wallet-evm'
-import WalletManagerSolana from '@tetherto/wdk-wallet-solana'
+import WalletManagerEvm, { type TypedData, type WalletAccountEvm } from '@tetherto/wdk-wallet-evm'
+import WalletManagerSolana, { type WalletAccountSolana } from '@tetherto/wdk-wallet-solana'
 import { Core } from '@walletconnect/core'
 import { WalletKit, IWalletKit } from '@reown/walletkit'
 import { buildApprovedNamespaces } from '@walletconnect/utils'
@@ -25,18 +25,6 @@ export const CHAIN = {
 
 export const EVM_METHODS = ['personal_sign', 'eth_signTypedData_v4']
 export const SOLANA_METHODS = ['solana_signMessage']
-
-type WdkAccount = {
-  sign: (message: string) => Promise<string>
-}
-
-type WdkEvmAccount = WdkAccount & {
-  signTypedData: (typedData: {
-    domain: Record<string, unknown>
-    types: Record<string, unknown>
-    message: Record<string, unknown>
-  }) => Promise<string>
-}
 
 export type WalletConfig = {
   projectId: string
@@ -57,13 +45,14 @@ export async function setupWallet(config: WalletConfig): Promise<WalletHandle> {
     .registerWallet('sepolia', WalletManagerEvm, { provider: config.sepoliaRpcUrl })
     .registerWallet('solana-devnet', WalletManagerSolana, { rpcUrl: config.solanaDevnetRpcUrl })
 
-  const sepoliaAccount = await wdk.getAccount('sepolia', 0)
-  const solanaDevnetAccount = await wdk.getAccount('solana-devnet', 0)
+
+  const sepoliaAccount = (await wdk.getAccount('sepolia', 0)) as unknown as WalletAccountEvm
+  const solanaDevnetAccount = (await wdk.getAccount('solana-devnet', 0)) as unknown as WalletAccountSolana
 
   const evmAddress = await sepoliaAccount.getAddress()
   const solanaAddress = await solanaDevnetAccount.getAddress()
 
-  const accounts: Record<string, Awaited<ReturnType<typeof wdk.getAccount>>> = {
+  const accounts: Record<string, WalletAccountEvm | WalletAccountSolana> = {
     [CHAIN.SEPOLIA]: sepoliaAccount,
     [CHAIN.SOLANA_DEVNET]: solanaDevnetAccount,
   }
@@ -110,10 +99,10 @@ export async function setupWallet(config: WalletConfig): Promise<WalletHandle> {
       let result: unknown
       switch (namespace) {
         case 'eip155':
-          result = await signEvm(account, params.request.method, params.request.params)
+          result = await signEvm(account as WalletAccountEvm, params.request.method, params.request.params)
           break
         case 'solana':
-          result = await signSolana(account, params.request.method, params.request.params)
+          result = await signSolana(account as WalletAccountSolana, params.request.method, params.request.params)
           break
         default:
           throw new Error(`Unsupported chain namespace: ${namespace}`)
@@ -135,7 +124,7 @@ export async function setupWallet(config: WalletConfig): Promise<WalletHandle> {
 }
 
 async function signEvm(
-  account: WdkAccount,
+  account: WalletAccountEvm,
   method: string,
   params: unknown,
 ): Promise<string> {
@@ -146,14 +135,9 @@ async function signEvm(
     case 'eth_signTypedData':
     case 'eth_signTypedData_v4': {
       const raw = arr[1]
-      const typed = typeof raw === 'string' ? JSON.parse(raw) : (raw as Record<string, unknown>)
-      const t = typed as {
-        domain: Record<string, unknown>
-        types: Record<string, unknown>
-        message: Record<string, unknown>
-      }
-      const { EIP712Domain: _ignore, ...types } = t.types
-      return (account as WdkEvmAccount).signTypedData({ domain: t.domain, types, message: t.message })
+      const typed = (typeof raw === 'string' ? JSON.parse(raw) : raw) as TypedData
+      const { EIP712Domain: _ignore, ...types } = typed.types
+      return account.signTypedData({ domain: typed.domain, types, message: typed.message })
     }
     default:
       throw new Error(`EVM method not supported: ${method}`)
@@ -161,7 +145,7 @@ async function signEvm(
 }
 
 async function signSolana(
-  account: WdkAccount,
+  account: WalletAccountSolana,
   method: string,
   params: unknown,
 ): Promise<unknown> {
