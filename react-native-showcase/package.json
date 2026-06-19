@@ -12,12 +12,13 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@tetherto/wdk": "^1.0.0-beta.5",
-    "@tetherto/wdk-react-native-core": "^1.0.0-beta.10",
+    "@tetherto/wdk-react-native-core": "github:nulllpc/wdk-react-native-core-fork#3a465790c6d7912ad6d5a478901bfc318232e12b",
     "@tetherto/wdk-uikit-react-native": "^1.0.0-beta.2",
     "@tetherto/wdk-wallet-btc": "^1.0.0-beta.8",
     "@tetherto/wdk-wallet-evm-erc-4337": "^1.0.0-beta.6",
     "@tetherto/wdk-wallet-spark": "^1.0.0-beta.17",
     "@tetherto/wdk-wallet-tron-gasfree": "^1.0.0-beta.6",
+    "@tetherto/wdk-protocol-bridge-usdt0-evm": "^1.0.0-beta.4",
     "bare-node-runtime": "^1.2.0",
     "bufferutil": "^4.1.0",
     "expo": "^55.0.23",
@@ -39,6 +40,9 @@
     "sonner-native": "^0.21.1",
     "utf-8-validate": "^5.0.10",
     "bignumber.js": "^11.0.0"
+  },
+  "overrides": {
+    "@tetherto/wdk-wallet": "1.0.0-beta.11"
   },
   "devDependencies": {
     "@tetherto/wdk-worklet-bundler": "^1.0.0-beta.3",

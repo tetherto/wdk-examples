@@ -14,6 +14,11 @@ module.exports = {
       package: '@tetherto/wdk-wallet-tron-gasfree'
     }
   },
+  protocols: {
+    usdt0Evm: {
+      package: '@tetherto/wdk-protocol-bridge-usdt0-evm'
+    }
+  },
   preloadModules: [
     '@buildonspark/spark-frost-bare-addon'
   ]

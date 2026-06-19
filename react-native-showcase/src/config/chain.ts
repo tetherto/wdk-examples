@@ -2,6 +2,7 @@ import { type EvmErc4337WalletConfig } from '@tetherto/wdk-wallet-evm-erc-4337'
 import { type BtcWalletConfig } from '@tetherto/wdk-wallet-btc'
 import { type SparkWalletConfig } from '@tetherto/wdk-wallet-spark'
 import { type TronGasfreeWalletConfig } from '@tetherto/wdk-wallet-tron-gasfree'
+import { type BridgeProtocolConfig } from '@tetherto/wdk-protocol-bridge-usdt0-evm'
 import type { WdkConfigs } from '@tetherto/wdk-react-native-core'
 
 export enum NETWORK_NAME {
@@ -12,7 +13,8 @@ export enum NETWORK_NAME {
 }
 
 export const wdkConfigs: WdkConfigs<
-  EvmErc4337WalletConfig | BtcWalletConfig | SparkWalletConfig | TronGasfreeWalletConfig
+  EvmErc4337WalletConfig | BtcWalletConfig | SparkWalletConfig | TronGasfreeWalletConfig,
+  BridgeProtocolConfig
 > = {
   networks: {
     [NETWORK_NAME.BITCOIN]: {
@@ -60,6 +62,13 @@ export const wdkConfigs: WdkConfigs<
         verifyingContract: 'THQGuFzL87ZqhxkgqYEryRAd7gqFqL5rdc',
         transferMaxFee: 100000000000000
       }
+    }
+  },
+  protocols: {
+    usdt0Evm: {
+      blockchain: NETWORK_NAME.ETHEREUM,
+      protocolName: 'usdt0Evm',
+      config: {}
     }
   }
 }
