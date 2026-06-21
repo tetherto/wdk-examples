@@ -43,6 +43,8 @@ npm run example:create-wallet
 
 Each sub-repo has its own `package.json` with only the dependencies it needs. See the README in each folder for available examples.
 
+**Browser extension:** `cd browser-extension-sovereign-wallet && npm install && npm run build:prod`, then load `dist/` in Chrome/Brave.
+
 Most transaction examples quote by default. Set `ACTUALLY_SEND=true` in `.env` only when using a funded test wallet.
 
 ## Documentation

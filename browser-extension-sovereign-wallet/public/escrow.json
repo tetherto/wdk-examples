@@ -1,0 +1,33 @@
+{
+  "defaultNetwork": "bsc",
+  "evmChains": ["ethereum", "polygon", "arbitrum", "bsc"],
+  "comingSoon": ["bitcoin", "solana"],
+  "protocolFeeBps": 50,
+  "protocolFeeRecipient": "0x48E07a92A870F7474b67683b6dBb32E619d88C7a",
+  "networks": {
+    "ethereum": {
+      "factory": "0x0000000000000000000000000000000000000000",
+      "registry": "0x0000000000000000000000000000000000000000",
+      "usdt": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+      "usdtDecimals": 6
+    },
+    "polygon": {
+      "factory": "0x0000000000000000000000000000000000000000",
+      "registry": "0x0000000000000000000000000000000000000000",
+      "usdt": "0xc2132D05D31c914a87C6611C10748AEb04B58e8F",
+      "usdtDecimals": 6
+    },
+    "arbitrum": {
+      "factory": "0x0000000000000000000000000000000000000000",
+      "registry": "0x0000000000000000000000000000000000000000",
+      "usdt": "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9",
+      "usdtDecimals": 6
+    },
+    "bsc": {
+      "factory": "0x70648Cc55D6e587967380cA481BBDe1dc79bFfE0",
+      "registry": "0x187D951ed96b6cB8734A2eEe0d91C0cd24eD17fb",
+      "usdt": "0x55d398326f99059fF775485246999027B3197955",
+      "usdtDecimals": 18
+    }
+  }
+}

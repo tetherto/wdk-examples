@@ -1,12 +1,36 @@
-# Browser extension — Sovereign Wallet
+# Browser Extension Starter — Sovereign Wallet
 
-Reference **Chrome / Brave Manifest V3** wallet built with [WDK](https://wdk.tether.io).
+Runnable **Chrome / Brave Manifest V3** wallet starter built with [WDK](https://wdk.tether.io).
 
-Canonical source (build, issues, releases):
+Multi-chain self-custodial extension: **EVM** (Ethereum, Polygon, Arbitrum, BNB Smart Chain), **Bitcoin** (Blockbook), and **Solana**. Includes encrypted vault, session lock, popup UX, and a content-script `window.wdk` provider (EIP-1193-style).
 
-**https://github.com/001453/Sovereign-wallet**
+Canonical upstream repo: [github.com/001453/Sovereign-wallet](https://github.com/001453/Sovereign-wallet)
 
-This folder indexes that project for the [WDK examples](https://github.com/tetherto/wdk-examples) collection. The full extension is maintained in the linked repository (not duplicated here).
+## Screenshots
+
+| Create / unlock | Portfolio | Send | Receive |
+|-----------------|-----------|------|---------|
+| ![Create wallet](./docs/screenshots/sover1.jpg) | ![Portfolio](./docs/screenshots/sover2.jpg) | ![Send](./docs/screenshots/sover3.jpg) | ![Receive](./docs/screenshots/sover4.jpg) |
+
+Demo video: [docs/demo/README.md](./docs/demo/README.md)
+
+## Quick start
+
+Requires Node 18+.
+
+```bash
+cd browser-extension-sovereign-wallet
+npm install
+npm run build:prod
+```
+
+Load the `dist/` folder from `chrome://extensions` (Developer mode → Load unpacked).
+
+For a watched build during development:
+
+```bash
+npm run dev
+```
 
 ## What it demonstrates
 
@@ -16,24 +40,13 @@ This folder indexes that project for the [WDK examples](https://github.com/tethe
 | WDK | `@tetherto/wdk` with EVM, Bitcoin (Blockbook), Solana managers |
 | Security | PBKDF2 + AES-256-GCM vault, session lock, MV3 CSP |
 | UX | Create / import / unlock, portfolio, send / receive, HD accounts |
-| dApps | `window.wdk` provider (EIP-1193-style); RPCs gated by connected site origin |
+| dApps | `window.wdk` provider; RPCs gated by connected site origin |
 
-## Supported networks (current)
+## Supported networks
 
-- **EVM:** Ethereum, Polygon, Arbitrum (native + USDt; XAUt on Ethereum)
+- **EVM:** Ethereum, Polygon, Arbitrum, BNB Smart Chain (native + USDt; XAUt on Ethereum)
 - **Bitcoin:** BIP-84 via Blockbook HTTP
 - **Solana:** mainnet RPC
-
-## Quick start
-
-```bash
-git clone https://github.com/001453/Sovereign-wallet.git
-cd Sovereign-wallet
-npm install
-npm run build:prod
-```
-
-Load the `dist/` directory in `chrome://extensions` (Developer mode → Load unpacked).
 
 ## Repository layout
 
@@ -43,7 +56,8 @@ Load the `dist/` directory in `chrome://extensions` (Developer mode → Load unp
 | `src/config/chains.js` | RPC URLs and token contracts |
 | `public/popup.html`, `public/popup.js` | Popup UI |
 | `src/content/index.js` | In-page `window.wdk` bridge |
-| `docs/README.md` | Architecture and message flow |
+| `docs/ARCHITECTURE.md` | Architecture and message flow |
+| `webpack.config.js` | Production bundle for MV3 |
 
 ## WDK packages
 
@@ -52,10 +66,10 @@ Load the `dist/` directory in `chrome://extensions` (Developer mode → Load unp
 - `@tetherto/wdk-wallet-btc`
 - `@tetherto/wdk-wallet-solana`
 
-## Demo assets
+## Grant deliverables
 
-- Video and screenshots: see `docs/demo/` and `docs/screenshots/` in the main repository.
+This example targets the [Browser Extension Starter](https://tether.dev/grants/bounties/) grant ($4,000 USD₮). See [docs/GRANT_APPLICATION.md](./docs/GRANT_APPLICATION.md) for the deliverable checklist and application text.
 
 ## License
 
-Apache-2.0 (see [LICENSE](https://github.com/001453/Sovereign-wallet/blob/main/LICENSE) in the main repository).
+Apache-2.0 — see [LICENSE](./LICENSE).

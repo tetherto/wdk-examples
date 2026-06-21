@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="google" content="notranslate" />
+  <title>Sovereign Escrow — OTC</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div>
+      <h1>Sovereign Escrow</h1>
+      <p class="sub">USDT ↔ any token · multi-chain · non-custodial</p>
+    </div>
+    <div class="wallet-pill" id="wallet-status">Checking wallet…</div>
+  </header>
+
+  <section class="progress-track" aria-label="Progress">
+    <div class="progress-label">
+      <span id="progress-title">Create OTC</span>
+      <span id="progress-count">0 / 3</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+  </section>
+
+  <div class="step-banner hidden" id="step-banner" role="status"></div>
+
+  <label for="chain-select">Network</label>
+  <select id="chain-select" aria-label="Escrow network">
+    <option value="bsc">BNB Smart Chain</option>
+    <option value="ethereum">Ethereum</option>
+    <option value="polygon">Polygon</option>
+    <option value="arbitrum">Arbitrum</option>
+  </select>
+  <p class="hint warn-hint hidden" id="init-error"></p>
+
+  <div id="protocol-info" class="card protocol-card hidden"></div>
+
+  <p class="hint ok-hint hidden" id="deploy-ok"></p>
+  <p class="hint warn-hint hidden" id="deploy-hint"></p>
+  <p class="hint muted-hint" id="coming-soon"></p>
+
+  <nav class="tabs">
+    <button type="button" class="tab active" data-tab="create">Create</button>
+    <button type="button" class="tab" data-tab="join">Join</button>
+  </nav>
+
+  <main>
+    <section id="panel-create" class="panel active">
+      <ol class="wizard compact" id="create-wizard"></ol>
+      <p class="role-hint">Buyer locks <strong>USDT</strong> and receives <strong>token</strong>. Seller locks <strong>token</strong> and receives <strong>USDT</strong>.</p>
+      <label for="create-role">Your role</label>
+      <select id="create-role">
+        <option value="buyer">Buyer (I pay USDT)</option>
+        <option value="seller">Seller (I provide token)</option>
+      </select>
+      <label for="create-counterparty">Counterparty address</label>
+      <input id="create-counterparty" placeholder="0x…" autocomplete="off" />
+      <label for="create-usdt">USDT amount</label>
+      <input id="create-usdt" type="number" min="0" step="any" placeholder="1000" />
+      <label for="create-token">Token contract (ERC-20 / BEP-20)</label>
+      <input id="create-token" placeholder="0x…" autocomplete="off" />
+      <label for="create-token-amount">Token amount</label>
+      <input id="create-token-amount" type="number" min="0" step="any" placeholder="1000000" />
+      <label for="create-token-decimals">Token decimals</label>
+      <input id="create-token-decimals" type="number" min="0" max="18" value="18" />
+      <label for="create-funding-hours">Funding window (hours)</label>
+      <input id="create-funding-hours" type="number" min="1" value="48" />
+      <label for="create-description">Note (optional)</label>
+      <textarea id="create-description" rows="2" placeholder="Telegram @…"></textarea>
+      <button type="button" class="btn primary" id="btn-create">Create OTC deal (confirm in wallet)</button>
+    </section>
+
+    <section id="panel-join" class="panel">
+      <ol class="wizard compact" id="join-wizard"></ol>
+      <label for="join-deal">Deal contract address</label>
+      <input id="join-deal" placeholder="0x… from OtcDealCreated event" autocomplete="off" />
+      <button type="button" class="btn" id="btn-load-deal">Load deal</button>
+      <div id="join-next-hint" class="card hint-card hidden"></div>
+      <div id="join-summary" class="card hidden"></div>
+      <div id="join-actions" class="actions hidden"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Protocol fee is set at deal creation (bps). Both parties must accept and deposit.</p>
+    <p class="network" id="network-label">—</p>
+  </footer>
+  <div id="toast" class="toast hidden"></div>
+  <script src="escrow.js"></script>
+</body>
+</html>

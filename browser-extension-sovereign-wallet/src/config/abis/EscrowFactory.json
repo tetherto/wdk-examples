@@ -1,0 +1,8 @@
+[
+  "event DealCreated(uint256 indexed dealId, address indexed deal, address indexed buyer, address seller, uint256 amount, bytes32 termsHash)",
+  "function createDeal(address buyer, address seller, uint256 amount, uint64 deliveryDeadline, uint64 confirmWindow, bytes32 termsHash) returns (uint256 dealId, address deal)",
+  "function deals(uint256) view returns (address)",
+  "function dealCount() view returns (uint256)",
+  "function allowedToken() view returns (address)",
+  "function nextDealId() view returns (uint256)"
+]
