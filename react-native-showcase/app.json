@@ -15,7 +15,13 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "io.tether.wdkshowcase"
+      "bundleIdentifier": "io.tether.wdkshowcase",
+      "entitlements": {
+        "com.apple.developer.icloud-services": ["CloudKit"],
+        "com.apple.developer.icloud-container-identifiers": [
+          "iCloud.io.tether.wdkshowcase"
+        ]
+      }
     },
     "android": {
       "adaptiveIcon": {

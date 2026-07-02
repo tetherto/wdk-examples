@@ -13,6 +13,7 @@ import { colors } from '../constants/colors';
 import wdkConfigs from '../config/chain';
 // import the generated bundle
 import bundle from '../../.wdk-bundle/wdk-worklet.bundle.js';
+import { CloudBackupProvider } from '@/context/CloudBackupContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -43,40 +44,43 @@ export default function RootLayout() {
       wdkConfigs={wdkConfigs}
       bundle={{ bundle: bundle as string }}
     >
-      <SplashHandler>
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <ThemeProvider
-            defaultMode="dark"
-            brandConfig={{
-              primaryColor: colors.primary,
-            }}
-          >
-            <NavigationThemeProvider value={CustomDarkTheme}>
-              <View style={{ flex: 1, backgroundColor: colors.background }}>
-                <Stack
-                  screenOptions={{
-                    headerShown: false,
-                    contentStyle: { backgroundColor: colors.background },
-                  }}
-                />
-                <StatusBar style="light" />
-              </View>
-            </NavigationThemeProvider>
-            <Toaster
-              offset={90}
-              toastOptions={{
-                style: {
-                  backgroundColor: colors.background,
-                  borderWidth: 1,
-                  borderColor: colors.border,
-                },
-                titleStyle: { color: colors.text },
-                descriptionStyle: { color: colors.text },
+      <CloudBackupProvider>
+
+        <SplashHandler>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <ThemeProvider
+              defaultMode="dark"
+              brandConfig={{
+                primaryColor: colors.primary,
               }}
-            />
-          </ThemeProvider>
-        </GestureHandlerRootView>
-      </SplashHandler>
+            >
+              <NavigationThemeProvider value={CustomDarkTheme}>
+                <View style={{ flex: 1, backgroundColor: colors.background }}>
+                  <Stack
+                    screenOptions={{
+                      headerShown: false,
+                      contentStyle: { backgroundColor: colors.background },
+                    }}
+                  />
+                  <StatusBar style="light" />
+                </View>
+              </NavigationThemeProvider>
+              <Toaster
+                offset={90}
+                toastOptions={{
+                  style: {
+                    backgroundColor: colors.background,
+                    borderWidth: 1,
+                    borderColor: colors.border,
+                  },
+                  titleStyle: { color: colors.text },
+                  descriptionStyle: { color: colors.text },
+                }}
+              />
+            </ThemeProvider>
+          </GestureHandlerRootView>
+        </SplashHandler>
+      </CloudBackupProvider>
     </WdkAppProvider>
   );
 }

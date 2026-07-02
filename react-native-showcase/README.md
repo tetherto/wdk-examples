@@ -28,6 +28,34 @@ Designed as a "kitchen sink" for WDK capabilities, this app allows developers to
 - **Message Signing**: Sign standard messages (EIP-191) to prove identity.
 - **Typed Data (EIP-712)**: Sign complex structured data for interactions with DAOs and protocols.
 
+### ☁️ Cloud Backup**
+Securely back up and restore encrypted wallet data using platform-native cloud providers.
+
+Supported platforms:
+- **iOS** → Apple CloudKit
+- **Android** → Google Drive
+
+Capabilities:
+- **upload**: upload wallet master keys to cloud, user can upload multiple wallet data from same account.
+- **download**: download wallet master keys from cloud.
+- **delete**: delete wallet master keys from cloud.
+- **exists**: check provided wallet data is stored on cloud or not.
+- **multiple wallets**: Support multiple wallets per cloud account.
+
+### Security
+
+Cloud Backup is designed with a security-first approach.
+
+- Wallet secrets are encrypted before upload.
+- Cloud providers never receive plaintext wallet data.
+- Multiple wallets can be backed up independently.
+- Backup and restore work seamlessly across supported devices.
+
+> **Note**
+>
+> Complete setup instructions, platform configuration, authentication, environment variables, troubleshooting, and known issues are documented separately in the **[Cloud Backup Setup Guide](./CLOUD-BACKUP.md)**.
+
+
 ## 🛠 Project Architecture
 
 The project is built with **Expo** and follows a feature-first directory structure:
@@ -37,6 +65,7 @@ src/
 ├── app/
 │   └── features/       # Self-contained feature modules
 │       ├── wallet/     # Wallet logic (Balance, Transfer, Mgmt)
+│       ├── cloud/      # Cloud backup logic (upload, download, delete, exist, etc)
 │       └── config/     # Configuration viewers
 ├── components/         # Shared UI (ActionCard, ConsoleOutput)
 ├── config/             # Chain & Token definitions (AssetConfig)
@@ -86,6 +115,17 @@ npm run android
 
 - **`@tetherto/wdk-react-native-core`**: Core hooks and logic.
 - **`@tetherto/wdk-worklet-bundler`**: CLI for bundling worklet code.
+- **`@tetherto/wdk-backup-cloud`**: cloud backup sdk to upload, download other operations
+
+# 📚 Documentation
+
+Additional documentation is available for individual modules.
+
+| Guide | Description |
+|--------|-------------|
+| **[Cloud Backup Setup Guide](./CLOUD-BACKUP.md)** | Complete setup guide for Apple CloudKit and Google Drive, including OAuth configuration, environment variables, platform-specific setup, troubleshooting, and known SDK issues. |
+
+---
 
 ## 📄 License
 
