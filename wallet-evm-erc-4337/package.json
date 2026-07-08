@@ -1,0 +1,29 @@
+{
+  "name": "@tetherto/wdk-examples-wallet-evm-erc-4337",
+  "version": "1.0.0",
+  "description": "WDK EVM ERC-4337 wallet examples",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "example:create-wallet": "tsx create-wallet.ts",
+    "example:manage-accounts": "tsx manage-accounts.ts",
+    "example:check-balances": "tsx check-balances.ts",
+    "example:read-only-account": "tsx read-only-account.ts",
+    "example:send-transaction": "tsx send-transaction.ts",
+    "example:send-transaction-gas-override": "tsx send-transaction-gas-override.ts",
+    "example:sign-transaction": "tsx sign-transaction.ts",
+    "example:token-transfer": "tsx token-transfer.ts",
+    "example:sign-verify-message": "tsx sign-verify-message.ts",
+    "example:fee-management": "tsx fee-management.ts",
+    "example:memory-management": "tsx memory-management.ts"
+  },
+  "dependencies": {
+    "@tetherto/wdk-wallet-evm-erc-4337": "^1.0.0-beta.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}

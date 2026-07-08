@@ -1,0 +1,27 @@
+{
+  "name": "@tetherto/wdk-examples-wallet-ton",
+  "version": "1.0.0",
+  "description": "WDK TON wallet examples",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "example:create-wallet": "tsx create-wallet.ts",
+    "example:manage-accounts": "tsx manage-accounts.ts",
+    "example:check-balances": "tsx check-balances.ts",
+    "example:read-only-account": "tsx read-only-account.ts",
+    "example:send-transaction": "tsx send-transaction.ts",
+    "example:token-transfer": "tsx token-transfer.ts",
+    "example:sign-verify-message": "tsx sign-verify-message.ts",
+    "example:fee-management": "tsx fee-management.ts",
+    "example:memory-management": "tsx memory-management.ts"
+  },
+  "dependencies": {
+    "@tetherto/wdk-wallet-ton": "^1.0.0-beta.9"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}

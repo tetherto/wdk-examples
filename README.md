@@ -15,31 +15,34 @@ Each folder contains small runnable examples for one WDK package or integration.
 | [wallet-ton](./wallet-ton/) | `@tetherto/wdk-wallet-ton` | TON wallets, balances, transactions, Jettons, signing, and fees |
 | [wallet-tron](./wallet-tron/) | `@tetherto/wdk-wallet-tron` | TRON wallets, balances, transactions, TRC20 tokens, signing, and fees |
 | [mcp-toolkit](./mcp-toolkit/) | `@tetherto/wdk-mcp-toolkit` | MCP server and LangChain agent examples for WDK tools |
+| [walletconnect-walletkit](./walletconnect-walletkit/) | `@reown/walletkit` + WDK | Self-contained dApp ↔ wallet signing flow |
 
 ## Run
 
-Install dependencies and copy the sample environment:
+**1. Install root dependencies and set up the environment:**
 
 ```bash
 npm install
 cp .env.example .env
+# Fill in the values in .env
 ```
 
-Run one example:
+**2. Install dependencies for the sub-repo you want to run:**
 
 ```bash
-npm run example:wallet-evm:create-wallet
+cd wallet-evm
+npm install
 ```
 
-Validate examples:
+**3. Run an example:**
 
 ```bash
-npm run typecheck
-npm run validate:wallet-evm
-npm run validate:all
+npm run example:create-wallet
 ```
 
-Most transaction examples quote by default. Set `ACTUALLY_SEND=true` only when using a funded test wallet.
+Each sub-repo has its own `package.json` with only the dependencies it needs. See the README in each folder for available examples.
+
+Most transaction examples quote by default. Set `ACTUALLY_SEND=true` in `.env` only when using a funded test wallet.
 
 ## Documentation
 
