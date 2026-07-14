@@ -41,6 +41,8 @@ export default function AssetsAndTransfersScreen() {
   });
 
   const handleSend = useCallback(async () => {
+    // Note: useAccount() always returns a truthy proxy — this guard never fires.
+    // Kept as a defensive fallback in case the API changes.
     if (!account) {
       Alert.alert('Error', 'Account not loaded. Ensure wallet is unlocked.');
       return;
@@ -56,7 +58,24 @@ export default function AssetsAndTransfersScreen() {
 
     const decimals = selectedAssetForTransfer.getDecimals();
     const network = selectedAssetForTransfer.getNetwork();
-    const amountInBaseUnit = new BigNumber(amount).shiftedBy(decimals).toFixed(0);
+
+    // Validate amount before conversion.
+    // BigNumber may throw (strict mode) or return NaN on invalid input
+    // such as locale-formatted numbers like '1,5' on European keyboards.
+    // We catch both cases here before any conversion happens.
+    let parsedAmount: BigNumber;
+    try {
+      parsedAmount = new BigNumber(amount);
+    } catch {
+      Alert.alert('Invalid Amount', 'Please enter a valid positive number.');
+      return;
+    }
+    if (!parsedAmount.isFinite() || parsedAmount.isNaN() ||
+        parsedAmount.isNegative() || parsedAmount.isZero()) {
+      Alert.alert('Invalid Amount', 'Please enter a valid positive number.');
+      return;
+    }
+    const amountInBaseUnit = parsedAmount.shiftedBy(decimals).toFixed(0);
 
     const sendPromise = (() => {
       if (selectedAssetForTransfer.isNative()) {
@@ -101,7 +120,18 @@ export default function AssetsAndTransfersScreen() {
     setTxHash('');
     try {
       const result = await sendPromise;
-      setTxHash(result?.hash);
+      // account.send() (native sends) returns TransactionResult which has
+      // { success, error } from UseAccountResponse and resolves on failure
+      // instead of throwing. .transfer() returns TransferResult which only
+      // has { hash, fee } and always throws on failure.
+      // Use 'in' narrowing so TypeScript only reads success/error when
+      // they exist on the result object, avoiding TS2339.
+      if (result && 'success' in result && result.success === false) {
+        const errMsg = 'error' in result ? (result as { error?: string }).error : undefined;
+        Alert.alert('Transfer Failed', errMsg ?? 'Unknown error. Please try again.');
+        return;
+      }
+      setTxHash(result?.hash ?? '');
       setAmount('');
       setRecipient('');
       refetch();

@@ -1,18 +1,35 @@
-// src/utils/payloadEncryption.ts
+// src/app/features/cloud/payloadEncryption.ts
 //
-// AES-256-GCM encryption for cloud backup payloads using expo-crypto.
+// AES-256-GCM payload encryption for cloud backup using expo-crypto.
+//
+// WHY expo-crypto INSTEAD OF @tetherto/wdk-utils:
+//   @tetherto/wdk-utils exports encrypt/decrypt (AES-256-GCM + real scrypt
+//   via @noble/ciphers), which would be the natural choice. However wdk-utils
+//   is designed to run inside the Bare worklet runtime, not in the React
+//   Native JS thread:
+
+//   1. @noble/ciphers calls globalThis.crypto.getRandomValues — this throws
+//      "crypto.getRandomValues must be defined" on Android in the RN JS context
+//      because the Web Crypto global is not reliably available outside the
+//      Bare runtime.
+
+//   2. wdk-utils@1.0.0-beta.9 requires bare-node-runtime@^1.4.0, conflicting
+//      with the 1.2.0 pin required to avoid the ADDON_NOT_FOUND worklet bug.
+
+//   expo-crypto is the correct alternative — it uses native JSI (CommonCrypto
+//   on iOS, javax.crypto on Android) with no Web Crypto dependency.
+//   The WDK itself already uses expo-crypto in mmkvKeyManager.ts.
 //
 // Key derivation:
-//   A single SHA-512 hash of (passphrase + salt) is used to derive the
-//   AES-256 key. This is intentionally fast — the 32-byte random salt
-//   already prevents rainbow tables and brute-force dictionary attacks
-//   against the stored ciphertext. The passphrase is a developer-set
-//   value in .env (not a user-typed low-entropy password), so the
-//   slow-KDF requirement of PBKDF2/scrypt does not apply here.
+//   SHA-512(passphrase + salt) → first 32 bytes → AES-256 key.
+//   A 32-byte random salt per backup makes precomputed attacks impossible
+//   even with a fast KDF. The passphrase is a developer-set build constant
+//   (not a user-typed low-entropy password), so PBKDF2/scrypt iteration
+//   counts are not required for security here.
 //
-//   The previous implementation ran 100,000 sequential digestStringAsync
-//   calls which each crossed the JS→native bridge, taking 30+ seconds.
-//   This implementation derives the key in a single native call (~1ms).
+//   ⚠️  PRODUCTION NOTE: EXPO_PUBLIC_* values are inlined into the JS bundle.
+//   In production, derive the passphrase from a per-user or per-device secret
+//   (e.g. a biometric-protected keychain entry), never from a bundled env var.
 //
 // Security properties:
 //   - AES-256-GCM (authenticated encryption — detects any tampering)

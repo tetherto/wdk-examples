@@ -36,7 +36,7 @@ export const ActionCard: React.FC<Props> = ({
       if (f.defaultValue !== undefined) {
         initial[f.id] = f.defaultValue;
       } else if (f.type === 'chain') {
-        initial[f.id] = Object.keys(wdkConfigs)[0];
+        initial[f.id] = Object.keys(wdkConfigs.networks)[0];
       } else if (f.type === 'select') {
         initial[f.id] = f.options?.[0]?.value;
       } else {

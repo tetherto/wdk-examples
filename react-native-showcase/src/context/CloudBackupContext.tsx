@@ -51,6 +51,10 @@ const CLOUDKIT_CONTAINER_ID =
 const CLOUDKIT_API_TOKEN =
   process.env['EXPO_PUBLIC_CLOUDKIT_API_TOKEN'] ?? '';
 
+// Derived from Expo's __DEV__ build-mode flag — NOT from a .env variable.
+// A CLOUDKIT_ENVIRONMENT entry in .env has no effect because:
+//   1. It would need an EXPO_PUBLIC_ prefix for Expo to inline it.
+//   2. The value is already set at bundle time by __DEV__.
 const CLOUDKIT_ENVIRONMENT: 'development' | 'production' =
   __DEV__ ? 'development' : 'production';
 
@@ -123,7 +127,12 @@ const CloudBackupContext = createContext<CloudBackupContextValue | undefined>(un
 
 export function CloudBackupProvider({ children }: { children: ReactNode }) {
 
-  // ── Token cache (in-memory only, never persisted to disk) ─────────────────
+  // ── Token cache ────────────────────────────────────────────────────────────
+  // The in-memory refs are the primary runtime token store.
+  // Note: on iOS, cloudkitAuthHtml.ts uses persist:true + localStorage to
+  // cache the ckWebAuthToken across WebView renders. signOut() clears the
+  // in-memory ref AND increments webViewSessionKey, which remounts the WebView
+  // (new React key prop) — this wipes its localStorage + cookies entirely.
   const iosWebAuthToken    = useRef<string | null>(null);
   const androidAccessToken = useRef<string | null>(null);
 
@@ -137,6 +146,9 @@ export function CloudBackupProvider({ children }: { children: ReactNode }) {
 
   // ── WebView modal state (iOS only) ─────────────────────────────────────────
   const [webViewVisible, setWebViewVisible] = useState(false);
+  // Incrementing this key remounts the WebView, wiping its localStorage and
+  // cookies (where cloudkitAuthHtml.ts persists the CloudKit session token).
+  const [webViewSessionKey, setWebViewSessionKey] = useState(0);
   const authPromiseRef = useRef<{
     resolve: (success: boolean) => void;
   } | null>(null);
@@ -404,6 +416,9 @@ export function CloudBackupProvider({ children }: { children: ReactNode }) {
   const signOut = useCallback(async (): Promise<void> => {
     if (Platform.OS === 'ios') {
       iosWebAuthToken.current = null;
+      // Remount the WebView to wipe its localStorage + cookies where the
+      // CloudKit session token is persisted via persist:true.
+      setWebViewSessionKey((k) => k + 1);
     } else {
       try {
         await GoogleSignin.signOut();
@@ -627,6 +642,7 @@ export function CloudBackupProvider({ children }: { children: ReactNode }) {
       {children}
       {Platform.OS === 'ios' && (
         <CloudKitAuthWebView
+          key={webViewSessionKey}
           visible={webViewVisible}
           containerIdentifier={CLOUDKIT_CONTAINER_ID}
           apiToken={CLOUDKIT_API_TOKEN}

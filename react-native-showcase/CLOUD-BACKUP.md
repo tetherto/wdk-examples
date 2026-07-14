@@ -122,6 +122,7 @@ Restore to secure storage
 
 Create a `.env` file and configure the required values.
 
+```bash
 # ── Cloud Backup — iOS (CloudKit) ─────────────────────────────────────────────
 EXPO_PUBLIC_CLOUDKIT_CONTAINER_ID=iCloud.io.tether.wdkshowcase
 EXPO_PUBLIC_CLOUDKIT_API_TOKEN=

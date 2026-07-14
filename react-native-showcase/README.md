@@ -65,8 +65,7 @@ src/
 ├── app/
 │   └── features/       # Self-contained feature modules
 │       ├── wallet/     # Wallet logic (Balance, Transfer, Mgmt)
-│       ├── cloud/      # Cloud backup logic (upload, download, delete, exist, etc)
-│       └── config/     # Configuration viewers
+│       └── cloud/      # Cloud backup logic (upload, download, delete, exist, etc)
 ├── components/         # Shared UI (ActionCard, ConsoleOutput)
 ├── config/             # Chain & Token definitions (AssetConfig)
 └── entities/           # Domain entities (AppAsset)
@@ -85,7 +84,16 @@ This project utilizes the **WDK Worklet Bundler**. Wallet cryptographic operatio
 
 ### Installation
 
-1.  **Install dependencies:**
+1.  **Configure environment variables:**
+    ```sh
+    cp .env.example .env
+    ```
+    Open `.env` and fill in your provider URLs, CloudKit API token,
+    Google Web Client ID, and backup passphrase.
+    Refer to the [WDK documentation](https://docs.wdk.tether.io/) for
+    instructions on how to obtain each value.
+
+2.  **Install dependencies:**
     ```sh
     npm install
     ```

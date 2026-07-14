@@ -32,11 +32,12 @@ import { useCloudBackup } from '@/context/CloudBackupContext';
 import {
   encryptPayload,
   decryptPayload,
-} from './payloadEncryption';
-// Passphrase from .env — used to encrypt/decrypt the backup payload.
-// Must be the same value on backup and restore.
-const BACKUP_PASSPHRASE =
-  process.env['EXPO_PUBLIC_CLOUD_BACKUP_PASSPHRASE'] ?? '';
+} from '../../../utils/payloadEncryption';
+// ⚠️  DEMO ONLY: EXPO_PUBLIC_* values are inlined as cleartext into the
+// shipped JS bundle — the same passphrase is shared by every user of the
+// same build. For production, derive a per-user or per-device secret
+// (e.g. from a biometric-protected keychain entry) and never bundle it.
+const BACKUP_PASSPHRASE = process.env['EXPO_PUBLIC_CLOUD_BACKUP_PASSPHRASE'];
 
 export default function CloudBackupScreen() {
   const {
@@ -197,15 +198,17 @@ export default function CloudBackupScreen() {
           // encrypted so nothing meaningful is visible in CloudKit/Drive.
           if (!BACKUP_PASSPHRASE) {
             throw new Error(
-              'EXPO_PUBLIC_CLOUD_BACKUP_PASSPHRASE is not set in your .env file. ' +
-              'Add a strong passphrase to enable encrypted cloud backups.'
+              'EXPO_PUBLIC_CLOUD_BACKUP_PASSPHRASE is not set. ' +
+              'Add it to your .env file before using cloud backup.'
             );
           }
 
           const plaintext = JSON.stringify({ encryptionKey, encryptedEntropyBuffer });
           const encryptedPayload = await encryptPayload(plaintext, BACKUP_PASSPHRASE);
           const payload = JSON.stringify(encryptedPayload);
-          console.log(`[BackupWallet]: payload: ${plaintext}, encryptedPayload: ${payload}`)
+          // DEMO ONLY — encryptionKey+encryptedEntropyBuffer are wallet-recovery
+          // material; remove this log before shipping to production.
+          if (__DEV__) { console.log(`[BackupWallet]: encrypted payload ready, ${payload.length} bytes`); }
 
           // Step 4: Upload — stored under wallet-specific record/file name
           const result = await uploadBackup(payload, targetId);
@@ -285,8 +288,8 @@ export default function CloudBackupScreen() {
 
           if (!BACKUP_PASSPHRASE) {
             throw new Error(
-              'EXPO_PUBLIC_CLOUD_BACKUP_PASSPHRASE is not set in your .env file. ' +
-              'This must match the passphrase used when the backup was created.'
+              'EXPO_PUBLIC_CLOUD_BACKUP_PASSPHRASE is not set. ' +
+              'It must match the passphrase used when the backup was created.'
             );
           }
 
@@ -295,7 +298,9 @@ export default function CloudBackupScreen() {
           try {
             const encryptedPayload = JSON.parse(result.encryptionKey);
             plaintext = await decryptPayload(encryptedPayload, BACKUP_PASSPHRASE);
-            console.log(`[RestoreWallet]: encryptedPayload: ${result.encryptionKey}, payload: ${plaintext}`)
+            // DEMO ONLY — plaintext contains decrypted wallet-recovery material;
+            // remove this log before shipping to production.
+            if (__DEV__) { console.log(`[RestoreWallet]: decrypted ${plaintext.length} chars`); }
           } catch (e: any) {
             throw new Error(
               `Decryption failed: ${e.message}. ` +

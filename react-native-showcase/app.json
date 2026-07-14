@@ -17,7 +17,9 @@
       "supportsTablet": true,
       "bundleIdentifier": "io.tether.wdkshowcase",
       "entitlements": {
-        "com.apple.developer.icloud-services": ["CloudKit"],
+        "com.apple.developer.icloud-services": [
+          "CloudKit"
+        ],
         "com.apple.developer.icloud-container-identifiers": [
           "iCloud.io.tether.wdkshowcase"
         ]
@@ -31,7 +33,9 @@
       "package": "io.tether.wdkshowcase"
     },
     "plugins": [
-      ["expo-router"],
+      [
+        "expo-router"
+      ],
       [
         "expo-build-properties",
         {
@@ -39,7 +43,8 @@
             "minSdkVersion": 29
           }
         }
-      ]
+      ],
+      "./modules/cloud-backup/withModularHeaders.js"
     ]
   }
 }

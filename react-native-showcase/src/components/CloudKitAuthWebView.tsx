@@ -137,7 +137,9 @@ export function CloudKitAuthWebView({
   const handleShouldStartLoad = useCallback(
     (request: ShouldStartLoadRequest): boolean => {
       if (request.url.startsWith(CLOUDKIT_CALLBACK_URL)) {
-        console.log('[CloudKitAuthWebView] Intercepted callback URL:', request.url);
+        // DEMO ONLY — never log auth tokens in production.
+        // Strip query params which contain the live ckWebAuthToken.
+        console.log('[CloudKitAuthWebView] Intercepted callback:', request.url.split('?')[0]);
         const token = extractTokenFromCallbackUrl(request.url);
         if (token) {
           setStatusText('Signed in! Finalizing…');
@@ -211,7 +213,9 @@ export function CloudKitAuthWebView({
   );
 
   const handleNavigationStateChange = useCallback((nav: WebViewNavigation) => {
-    console.log('[CloudKitAuthWebView] navigated to:', nav.url, 'loading:', nav.loading);
+    // DEMO ONLY — Apple auth URLs carry oauth_token/oauth_verifier in query params;
+    // log path only so credentials never appear in logs.
+    console.log('[CloudKitAuthWebView] navigated to:', nav.url.split('?')[0], 'loading:', nav.loading);
   }, []);
 
   return (
