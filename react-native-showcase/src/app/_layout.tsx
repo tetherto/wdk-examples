@@ -1,3 +1,6 @@
+// Polyfill crypto.getRandomValues for the RN JS thread. Must be the FIRST
+// import — @noble/ciphers (via @tetherto/wdk-utils) needs it at module load.
+import 'react-native-get-random-values';
 import { DarkTheme, ThemeProvider as NavigationThemeProvider } from '@react-navigation/native';
 import { WdkAppProvider, useWdkApp } from '@tetherto/wdk-react-native-core';
 import { ThemeProvider } from '@tetherto/wdk-uikit-react-native';

@@ -54,6 +54,12 @@ Cloud Backup is designed with a security-first approach.
 > **Note**
 >
 > Complete setup instructions, platform configuration, authentication, environment variables, troubleshooting, and known issues are documented separately in the **[Cloud Backup Setup Guide](./CLOUD-BACKUP.md)**.
+>
+> If you experience issues on iOS after installing a new SDK or native component, delete Xcode's Derived Data and rebuild the project. Stale build artifacts can sometimes cause unexpected issues.
+
+```bash
+rm -rf ~/Library/Developer/Xcode/DerivedData
+```
 
 
 ## 🛠 Project Architecture
