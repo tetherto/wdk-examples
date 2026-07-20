@@ -10,7 +10,7 @@
 //
 // Backup flow:
 //   1. Read the wallet mnemonic from WDK secure storage
-//   2. Encrypt it with AES-256-GCM (Web Crypto API, random key + IV per call)
+//   2. Encrypt it with AES-256-GCM + scrypt (via @tetherto/wdk-utils, random salt + IV per call)
 //   3. Upload the encrypted payload to CloudKit / Google Drive
 //
 // Restore flow:
@@ -28,7 +28,7 @@ import { ConsoleOutput } from '@/components/ConsoleOutput';
 import { FeatureLayout } from '@/components/FeatureLayout';
 import { colors } from '@/constants/colors';
 import { useCloudBackup } from '@/context/CloudBackupContext';
-// Payload encryption — AES-256-GCM using Web Crypto API (works in Hermes RN)
+// Payload encryption — AES-256-GCM + scrypt via @tetherto/wdk-utils
 import {
   encryptPayload,
   decryptPayload,
