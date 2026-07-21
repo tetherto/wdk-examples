@@ -131,11 +131,10 @@ EXPO_PUBLIC_CLOUDKIT_CONTAINER_ID=iCloud.io.tether.wdkshowcase
 EXPO_PUBLIC_CLOUDKIT_API_TOKEN=
 
 # ── Cloud Backup — Android (Google Drive) ─────────────────────────────────────
+# You can copy the values from .env.example for a published OAuth flow that works out of the box.
+# If you want to setup your own google project and OAuth system, tied to your personal account follow steps 1-6 in the Android setup section below
 EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID=
-# Your OWN Android application id. Google binds an OAuth client to a globally
-# unique (package + signing SHA-1) pair, so you can't reuse someone else's —
-# set your own (e.g. io.tether.wdkshowcase.<you>) and register an Android OAuth
-# client for it, or you'll get a 403. Blank → defaults to io.tether.wdkshowcase.
+
 EXPO_PUBLIC_ANDROID_PACKAGE=io.tether.wdkshowcase.<you>
 
 # ── Cloud Backup — Payload encryption ────────────────────────────────────────
@@ -245,6 +244,17 @@ npx expo run:ios --device
 
 ## Android Cloud Backup Setup (Google Drive)
 
+### Step 0 — Quick start: use the published demo client (skip Steps 1–6)
+
+If you're just trying the feature for a demo or to learn, you don't need your own
+Google project. Copy the default `EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID` and
+`EXPO_PUBLIC_ANDROID_PACKAGE` from `.env.example` into your `.env` as-is — Google
+Drive backup works out of the box, because that web client is **published** and the
+default package pairs with it.
+
+> Demo only — don't ship this client in production. For your own app, follow
+> Steps 1–6 below (and set your own unique `EXPO_PUBLIC_ANDROID_PACKAGE`).
+
 ### Step 1 — Get your debug SHA-1 fingerprint
 
 Run this after your first `expo prebuild`:
@@ -265,7 +275,7 @@ SHA1: A1:B2:C3:D4:E5:F6:G7:H8:I9:J0:K1:L2:M3:N4:O5:P6:Q7:R8:S9:T0
 2. **Create an Android OAuth Client ID** (required even though you won't use it in code — it registers your package + SHA-1 with Google):
    - Left sidebar → **APIs & Services → Credentials → + Create Credentials → OAuth Client ID**
    - Application type: **Android**
-   - Package name: **your own** — the value you'll set as `EXPO_PUBLIC_ANDROID_PACKAGE` below (e.g. `io.tether.wdkshowcase.<you>`). **Do not reuse `io.tether.wdkshowcase`** — the `(package + SHA-1)` pair is globally unique across Google, and that one is already registered in Tether's project, so you'll hit a **403** on sign-in. Pick a suffix unique to you.
+   - Package name: **your own** — the value you'll set as `EXPO_PUBLIC_ANDROID_PACKAGE` below (e.g. `io.tether.wdkshowcase.<you>`). **Do not reuse `io.tether.wdkshowcase`** — the `(package + SHA-1)` pair is globally unique across Google, and that one is already registered. Pick a suffix unique to you.
    - SHA-1: paste from Step 1
    - Click **Create**
 
@@ -352,7 +362,8 @@ This passphrase is used to AES-256-GCM encrypt the backup payload (via `@tethert
 
 | Error | Cause | Fix |
 |---|---|---|
-| **403 / "access blocked" / "hasn't completed verification"** | Your `(package + SHA-1)` resolves to an OAuth client in **someone else's** project (e.g. you reused `io.tether.wdkshowcase`, which is registered in Tether's project) — so your own testers/scopes never apply | Set a **unique** `EXPO_PUBLIC_ANDROID_PACKAGE` (e.g. `io.tether.wdkshowcase.<you>`), create an Android OAuth client for it **in your own project**, rebuild. Confirm via the 403's `client_id` — it should carry **your** project number |
+| **403 / "access blocked" / "hasn't completed verification"** | The OAuth consent app you're signing into is in **Testing** mode and your Google account isn't on its tester list (or the app isn't published). Your app authenticates against whichever project owns your `(package + SHA-1)` — so if you reused `io.tether.wdkshowcase`, that's Tether's project, and only its testers can sign in | Use the published demo client (Step 0), **or** get added as a tester on that project, **or** switch to your OWN unique package + your own client with your account as a tester (or the app published) |
+| `Requested entity already exists` when creating an Android OAuth client | The `(package + SHA-1)` pair is globally unique across Google and is already registered in another project (e.g. `io.tether.wdkshowcase` + the Expo default debug SHA is registered in Tether's project) | Use a UNIQUE package (e.g. `io.tether.wdkshowcase.<you>`) and register the Android client for that instead |
 | `DEVELOPER_ERROR (10)` | SHA-1 fingerprint not registered, or package name mismatch | Register your debug SHA-1 (see note below) under the Android OAuth Client ID |
 | `authentication failed — Failed to write backup` | `drive.appdata` scope missing from access token | Add scope in OAuth consent screen; re-sign-in after adding |
 | `Google Sign-In cancelled` | User dismissed the sign-in prompt | Normal — user can retry |
