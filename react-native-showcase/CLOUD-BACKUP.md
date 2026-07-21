@@ -124,11 +124,19 @@ Create a `.env` file and configure the required values.
 
 ```bash
 # ── Cloud Backup — iOS (CloudKit) ─────────────────────────────────────────────
+# Your own CloudKit container + web-services API token (see iOS setup below).
+# The iOS backup uses the CloudKit web-services flow, which reads these at
+# runtime — you do NOT need to change app.json.
 EXPO_PUBLIC_CLOUDKIT_CONTAINER_ID=iCloud.io.tether.wdkshowcase
 EXPO_PUBLIC_CLOUDKIT_API_TOKEN=
 
 # ── Cloud Backup — Android (Google Drive) ─────────────────────────────────────
 EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID=
+# Your OWN Android application id. Google binds an OAuth client to a globally
+# unique (package + signing SHA-1) pair, so you can't reuse someone else's —
+# set your own (e.g. io.tether.wdkshowcase.<you>) and register an Android OAuth
+# client for it, or you'll get a 403. Blank → defaults to io.tether.wdkshowcase.
+EXPO_PUBLIC_ANDROID_PACKAGE=io.tether.wdkshowcase.<you>
 
 # ── Cloud Backup — Payload encryption ────────────────────────────────────────
 # Strong passphrase used to AES-256-GCM encrypt the backup payload before
@@ -254,10 +262,10 @@ SHA1: A1:B2:C3:D4:E5:F6:G7:H8:I9:J0:K1:L2:M3:N4:O5:P6:Q7:R8:S9:T0
 
 1. Go to [console.cloud.google.com](https://console.cloud.google.com) → **New Project** → name it `WDK Showcase` → Create
 
-2. **Create an Android OAuth Client ID** (required even though you won't use it in code — it registers your SHA-1 with Google):
+2. **Create an Android OAuth Client ID** (required even though you won't use it in code — it registers your package + SHA-1 with Google):
    - Left sidebar → **APIs & Services → Credentials → + Create Credentials → OAuth Client ID**
    - Application type: **Android**
-   - Package name: `io.tether.wdkshowcase` (must match `applicationId` in `android/app/build.gradle`)
+   - Package name: **your own** — the value you'll set as `EXPO_PUBLIC_ANDROID_PACKAGE` below (e.g. `io.tether.wdkshowcase.<you>`). **Do not reuse `io.tether.wdkshowcase`** — the `(package + SHA-1)` pair is globally unique across Google, and that one is already registered in Tether's project, so you'll hit a **403** on sign-in. Pick a suffix unique to you.
    - SHA-1: paste from Step 1
    - Click **Create**
 
@@ -290,7 +298,14 @@ SHA1: A1:B2:C3:D4:E5:F6:G7:H8:I9:J0:K1:L2:M3:N4:O5:P6:Q7:R8:S9:T0
 
 ```bash
 EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID=123456789-abc.apps.googleusercontent.com
+# Same value you used for the Android OAuth client's package name above:
+EXPO_PUBLIC_ANDROID_PACKAGE=io.tether.wdkshowcase.<you>
 ```
+
+> Only the **web** client ID goes in code. The Android client ID is never
+> referenced — it just needs to exist so Google can match your `(package + SHA-1)`
+> to your project. The package you set here is applied at build time via
+> `app.config.js`.
 
 ### Step 6 — Rebuild
 
@@ -337,10 +352,13 @@ This passphrase is used to AES-256-GCM encrypt the backup payload (via `@tethert
 
 | Error | Cause | Fix |
 |---|---|---|
-| `DEVELOPER_ERROR (10)` | SHA-1 fingerprint not registered or package name mismatch | Register SHA-1 in Google Cloud Console under Android OAuth Client ID |
+| **403 / "access blocked" / "hasn't completed verification"** | Your `(package + SHA-1)` resolves to an OAuth client in **someone else's** project (e.g. you reused `io.tether.wdkshowcase`, which is registered in Tether's project) — so your own testers/scopes never apply | Set a **unique** `EXPO_PUBLIC_ANDROID_PACKAGE` (e.g. `io.tether.wdkshowcase.<you>`), create an Android OAuth client for it **in your own project**, rebuild. Confirm via the 403's `client_id` — it should carry **your** project number |
+| `DEVELOPER_ERROR (10)` | SHA-1 fingerprint not registered, or package name mismatch | Register your debug SHA-1 (see note below) under the Android OAuth Client ID |
 | `authentication failed — Failed to write backup` | `drive.appdata` scope missing from access token | Add scope in OAuth consent screen; re-sign-in after adding |
 | `Google Sign-In cancelled` | User dismissed the sign-in prompt | Normal — user can retry |
 | `Play Services not available` | Device has no Google Play Services | Not supported on this device |
+
+> **Debug SHA-1 note:** the debug build is signed with `android/app/debug.keystore` (Expo's default keystore), **not** `~/.android/debug.keystore`. Its SHA-1 is the same on every machine/Expo project (`5E:8F:16:…`), so register *that* one. Fastest way to read it: `keytool -list -v -keystore android/app/debug.keystore -alias androiddebugkey -storepass android -keypass android | grep SHA1`
 
 ---
 
