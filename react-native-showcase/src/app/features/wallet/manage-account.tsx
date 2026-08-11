@@ -131,7 +131,10 @@ export default function ManageAccountScreen() {
         description="Locks the active wallet, clearing sensitive data from memory."
         fields={[]}
         action={async () => {
-          lock();
+          // lock() now returns Promise<void> (WDK PR #77) — must be awaited
+          // so the mutex-protected operation actually completes before this
+          // screen reports success.
+          await lock();
           return { success: true, message: "Wallet locked" };
         }}
         actionLabel="Lock"
