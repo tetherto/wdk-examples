@@ -20,6 +20,7 @@
     "wallet-solana/**/*.ts",
     "wallet-ton/**/*.ts",
     "wallet-tron/**/*.ts",
+    "wallet-bermuda/**/*.ts",
     "mcp-toolkit/**/*.ts"
   ],
   "exclude": ["node_modules", "dist"]

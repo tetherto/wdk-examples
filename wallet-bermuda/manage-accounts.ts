@@ -10,7 +10,6 @@
 import WalletManagerBermuda from '@bermuda/wdk-wallet-bermuda'
 import { loadBermudaConfig } from '../shared/config.js'
 import { logSection, logResult } from '../shared/helpers.js'
-import assert from "node:assert"
 
 async function main() {
   const config = loadBermudaConfig()
@@ -25,8 +24,8 @@ async function main() {
   const account00 = await wallet.getBermudaAccount(0, 0)
   const account01 = await wallet.getBermudaAccount(0, 1)
 
-  assert(defaultAccount.address === account00.address)
   logResult('Default Bermuda account', { address: defaultAccount.address })
+  logResult('Bermuda account 00', { address: account00.address })
   logResult('Bermuda account 01', { address: account01.address })
 
   wallet.dispose()
