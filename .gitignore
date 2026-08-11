@@ -3,3 +3,6 @@ dist/
 .env
 MIGRATION_PLAYBOOK.md
 *.log
+
+# Expo
+.expo/

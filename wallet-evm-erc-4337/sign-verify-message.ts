@@ -20,7 +20,6 @@ async function main() {
     chainId: config.chainId,
     provider: config.rpcUrl,
     bundlerUrl: config.bundlerUrl,
-    entryPointAddress: config.entryPointAddress,
     safeModulesVersion: config.safeModulesVersion,
     useNativeCoins: true,
   })

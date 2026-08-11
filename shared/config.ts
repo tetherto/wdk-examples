@@ -1,4 +1,8 @@
-import 'dotenv/config'
+import dotenv from 'dotenv'
+import { resolve, dirname } from 'path'
+import { fileURLToPath } from 'url'
+
+dotenv.config({ path: resolve(dirname(fileURLToPath(import.meta.url)), '../.env') })
 
 export function requireEnv(key: string): string {
   const value = process.env[key]
@@ -78,6 +82,15 @@ export function loadTronConfig() {
     transferMaxFee: 10_000_000n,
     recipientAddress: requireEnv('TRON_RECIPIENT_ADDRESS'),
     tokenContract: requireEnv('TRON_TRC20_CONTRACT'),
+  }
+}
+
+export function loadWalletConnectConfig() {
+  return {
+    seedPhrase: requireEnv('SEED_PHRASE'),
+    projectId: requireEnv('WALLETCONNECT_PROJECT_ID'),
+    sepoliaRpcUrl: requireEnv('WALLETCONNECT_SEPOLIA_RPC_URL'),
+    solanaDevnetRpcUrl: requireEnv('WALLETCONNECT_SOLANA_DEVNET_RPC_URL'),
   }
 }
 

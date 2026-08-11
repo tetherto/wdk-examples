@@ -1,12 +1,14 @@
 'use strict'
 
 const fs = require('fs')
+const { createRequire } = require('module')
 const path = require('path')
 
 // Resolve @bermuda/sdk build directory - handles npm hoisting.
 let sdkBuildSrc
 try {
-  const entry = require.resolve('@bermuda/sdk')
+  const projectRequire = createRequire(path.join(process.cwd(), 'package.json'))
+  const entry = projectRequire.resolve('@bermuda/sdk')
   const sdkRoot = path.resolve(entry, '..', '..', '..')
   sdkBuildSrc = path.join(sdkRoot, 'build', 'src')
   if (!fs.existsSync(sdkBuildSrc)) {
