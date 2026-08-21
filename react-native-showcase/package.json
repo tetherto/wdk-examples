@@ -20,7 +20,7 @@
     "@react-navigation/native": "^7.3.3",
     "@tetherto/wdk": "^1.0.0-beta.5",
     "@tetherto/wdk-backup-cloud": "github:Boka44/wdk-backup-cloud",
-    "@tetherto/wdk-react-native-core": "github:nulllpc/wdk-react-native-core-fork#72b3793b706158163aaf6e7b6d2ee451e22aaea4",
+    "@tetherto/wdk-react-native-core": "^1.0.0-beta.17",
     "@tetherto/wdk-uikit-react-native": "^1.0.0-beta.2",
     "@tetherto/wdk-utils": "^1.0.0-beta.7",
     "@tetherto/wdk-wallet-btc": "^1.0.0-beta.8",
