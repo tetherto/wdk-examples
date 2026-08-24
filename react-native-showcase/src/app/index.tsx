@@ -58,7 +58,7 @@ const WalletCard = ({ id, isActive, onUnlock }: { id: string, isActive: boolean,
 
 export default function App() {
   const { state } = useWdkApp();
-  const { activeWalletId, wallets, unlock, lock } = useWalletManager();
+  const { activeWalletId, wallets, switchWallet } = useWalletManager();
   const insets = useSafeAreaInsets();
   const router = useRouter();
 
@@ -72,8 +72,11 @@ export default function App() {
 
   const handleUnlock = async (id: string) => {
     try {
-      lock()
-      await unlock(id);
+      // switchWallet() replaces the old manual lock() + unlock(id) pattern.
+      // It's the atomic convenience added in WDK PR #77 specifically for this
+      // case — it awaits lock() before unlock() runs, guaranteeing the
+      // previous wallet's state is cleared before the next one loads.
+      await switchWallet(id);
     } catch (e: any) {
       Alert.alert('Unlock Failed', e.message);
     }

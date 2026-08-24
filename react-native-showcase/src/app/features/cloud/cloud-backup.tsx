@@ -62,6 +62,7 @@ export default function CloudBackupScreen() {
     getMnemonicFromEntropy,
     wallets,
     activeWalletId,
+    lock,
   } = useWalletManager();
 
   const [deviceStatus, setDeviceStatus] = useState<any>(null);
@@ -343,7 +344,15 @@ export default function CloudBackupScreen() {
           }
 
           // Restore the wallet — this recreates it in WDK secure storage
-          // and makes it appear on the Home screen
+          // and makes it appear on the Home screen.
+          //
+          // WDK PR #77 breaking change: restoreWallet() now throws if a
+          // wallet is already active, instead of silently overwriting the
+          // session. If the user currently has a different wallet unlocked
+          // while restoring this one, lock it first.
+          if (activeWalletId) {
+            await lock();
+          }
           await restoreWallet(mnemonic, targetId);
 
           return {

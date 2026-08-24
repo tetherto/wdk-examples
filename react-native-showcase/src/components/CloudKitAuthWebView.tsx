@@ -31,8 +31,8 @@ import {
   WebView,
   type WebViewMessageEvent,
   type WebViewNavigation,
-  type ShouldStartLoadRequest,
 } from 'react-native-webview';
+import type { ShouldStartLoadRequest } from 'react-native-webview/lib/WebViewTypes'
 import { colors } from '@/constants/colors';
 import { buildCloudKitAuthHtml } from '../webview-assets/cloudkitAuthHtml';
 
