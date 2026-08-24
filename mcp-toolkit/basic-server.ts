@@ -25,6 +25,7 @@ import VeloraProtocolEvm from '@tetherto/wdk-protocol-swap-velora-evm'
 import Usdt0ProtocolEvm from '@tetherto/wdk-protocol-bridge-usdt0-evm'
 import AaveProtocolEvm from '@tetherto/wdk-protocol-lending-aave-evm'
 import MoonPayProtocol from '@tetherto/wdk-protocol-fiat-moonpay'
+import type { SwapProtocolConfig, BridgeProtocolConfig } from '@tetherto/wdk-wallet/protocols'
 
 const seed = process.env.WDK_SEED ?? process.env.SEED_PHRASE
 const hasIndexer = Boolean(process.env.WDK_INDEXER_API_KEY)
@@ -57,12 +58,43 @@ async function main() {
     .registerWallet('bitcoin', WalletManagerBtc, {
       network: 'bitcoin',
     })
-    .registerProtocol('ethereum', 'velora', VeloraProtocolEvm)
-    .registerProtocol('arbitrum', 'velora', VeloraProtocolEvm)
-    .registerProtocol('ethereum', 'usdt0', Usdt0ProtocolEvm)
-    .registerProtocol('arbitrum', 'usdt0', Usdt0ProtocolEvm)
-    .registerProtocol('ethereum', 'aave', AaveProtocolEvm)
     .usePricing()
+
+  // registerProtocol()'s generic constraint is typed against the base
+  // SwapProtocol/BridgeProtocol/LendingProtocol/FiatProtocol classes, whose
+  // constructors accept the generic IWalletAccountReadOnly | IWalletAccount.
+  // Every concrete protocol (Velora, Usdt0, Aave, MoonPay) narrows its own
+  // constructor to chain-specific account types (e.g. WalletAccountReadOnlyEvm),
+  // which is valid for class inheritance but fails standard contravariant
+  // function-type assignability when the constructor is passed as a plain
+  // value — so calling registerProtocol with any real protocol class fails
+  // to typecheck as-is. Binding + casting per protocol category (as already
+  // done below for MoonPayProtocol) works around this toolkit typing gap.
+  const registerSwapProtocol = server.registerProtocol.bind(server) as (
+    chain: string,
+    label: string,
+    protocol: typeof VeloraProtocolEvm,
+    config?: SwapProtocolConfig
+  ) => typeof server
+
+  const registerBridgeProtocol = server.registerProtocol.bind(server) as (
+    chain: string,
+    label: string,
+    protocol: typeof Usdt0ProtocolEvm,
+    config?: BridgeProtocolConfig
+  ) => typeof server
+
+  const registerLendingProtocol = server.registerProtocol.bind(server) as (
+    chain: string,
+    label: string,
+    protocol: typeof AaveProtocolEvm
+  ) => typeof server
+
+  registerSwapProtocol('ethereum', 'velora', VeloraProtocolEvm)
+  registerSwapProtocol('arbitrum', 'velora', VeloraProtocolEvm)
+  registerBridgeProtocol('ethereum', 'usdt0', Usdt0ProtocolEvm)
+  registerBridgeProtocol('arbitrum', 'usdt0', Usdt0ProtocolEvm)
+  registerLendingProtocol('ethereum', 'aave', AaveProtocolEvm)
 
   if (hasIndexer && process.env.WDK_INDEXER_API_KEY) {
     server.useIndexer({ apiKey: process.env.WDK_INDEXER_API_KEY })
