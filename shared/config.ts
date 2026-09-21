@@ -30,7 +30,6 @@ export function loadEvmConfig() {
 
 const ERC4337_DEFAULTS = {
   chainId: 11155111, // Sepolia
-  entryPointAddress: '0x0000000071727De22E5E9d8BAf0edAc6f37da032',
   safeModulesVersion: '0.3.0',
 } as const
 
@@ -40,7 +39,6 @@ export function loadErc4337Config() {
     chainId: ERC4337_DEFAULTS.chainId,
     rpcUrl: requireEnv('ERC4337_RPC_URL'),
     bundlerUrl: requireEnv('ERC4337_BUNDLER_URL'),
-    entryPointAddress: ERC4337_DEFAULTS.entryPointAddress,
     safeModulesVersion: ERC4337_DEFAULTS.safeModulesVersion,
     paymasterUrl: optionalEnv('ERC4337_PAYMASTER_URL'),
     paymasterAddress: optionalEnv('ERC4337_PAYMASTER_ADDRESS'),
