@@ -1,0 +1,26 @@
+{
+  "name": "@tetherto/wdk-examples-wallet-auth",
+  "version": "1.0.0",
+  "description": "WDK wallet auth policy examples",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "example:policy-gate": "tsx policy-gate.ts",
+    "example:verify-attestation": "tsx verify-attestation.ts"
+  },
+  "dependencies": {
+    "@insumermodel/wdk-protocol-wallet-auth": "^0.2.3",
+    "@tetherto/wdk": "^1.0.0-beta.18",
+    "@tetherto/wdk-wallet-evm": "^1.0.0-beta.18",
+    "jose": "^6.2.12"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  },
+  "overrides": {
+    "@tetherto/wdk-wallet": "1.0.0-beta.17"
+  }
+}

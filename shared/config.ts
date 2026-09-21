@@ -119,3 +119,13 @@ export function loadWdkConfig() {
     tron,
   }
 }
+
+export function loadWalletAuthConfig() {
+  return {
+    seedPhrase: requireEnv('SEED_PHRASE'),
+    rpcUrl: requireEnv('EVM_RPC_URL'),
+    tokenContract: requireEnv('EVM_TOKEN_CONTRACT'),
+    recipientAddress: requireEnv('EVM_RECIPIENT_ADDRESS'),
+    insumerApiKey: requireEnv('INSUMER_API_KEY'),
+  }
+}
