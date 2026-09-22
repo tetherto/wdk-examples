@@ -14,6 +14,7 @@ Each folder contains small runnable examples for one WDK package or integration.
 | [wallet-solana](./wallet-solana/) | `@tetherto/wdk-wallet-solana` | Solana wallets, balances, transactions, SPL tokens, signing, and fees |
 | [wallet-ton](./wallet-ton/) | `@tetherto/wdk-wallet-ton` | TON wallets, balances, transactions, Jettons, signing, and fees |
 | [wallet-tron](./wallet-tron/) | `@tetherto/wdk-wallet-tron` | TRON wallets, balances, transactions, TRC20 tokens, signing, and fees |
+| [wallet-bermuda](./wallet-bermuda/) | `@bermuda/wdk-wallet-bermuda` | Private accounts and transactions |
 | [mcp-toolkit](./mcp-toolkit/) | `@tetherto/wdk-mcp-toolkit` | MCP server and LangChain agent examples for WDK tools |
 | [walletconnect-walletkit](./walletconnect-walletkit/) | `@reown/walletkit` + WDK | Self-contained dApp ↔ wallet signing flow |
 

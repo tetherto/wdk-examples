@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        example: [wdk, wallet-evm, wallet-evm-erc-4337, wallet-solana, wallet-ton, wallet-tron, mcp-toolkit, walletconnect-walletkit]
+        example: [wdk, wallet-evm, wallet-evm-erc-4337, wallet-solana, wallet-ton, wallet-tron, wallet-bermuda, mcp-toolkit, walletconnect-walletkit]
     steps:
       - uses: actions/checkout@v4
 
