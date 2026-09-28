@@ -1,6 +1,6 @@
 # WDK Examples
 
-Runnable code examples for [WDK (Wallet Development Kit)](https://docs.wdk.tether.io/) SDK modules.
+Runnable code examples for [WDK (Wallet Development Kit) by Tether](https://docs.wdk.tether.io/) SDK modules.
 
 Each folder contains small runnable examples for one WDK package or integration.
 
