@@ -16,6 +16,7 @@ Each folder contains small runnable examples for one WDK package or integration.
 | [wallet-tron](./wallet-tron/) | `@tetherto/wdk-wallet-tron` | TRON wallets, balances, transactions, TRC20 tokens, signing, and fees |
 | [mcp-toolkit](./mcp-toolkit/) | `@tetherto/wdk-mcp-toolkit` | MCP server and LangChain agent examples for WDK tools |
 | [walletconnect-walletkit](./walletconnect-walletkit/) | `@reown/walletkit` + WDK | Self-contained dApp ↔ wallet signing flow |
+| [wallet-auth](./wallet-auth/) | `@tetherto/wdk` + `@insumermodel/wdk-protocol-wallet-auth` | Wallet auth checks as transaction policy conditions, with offline verification |
 
 ## Run
 
