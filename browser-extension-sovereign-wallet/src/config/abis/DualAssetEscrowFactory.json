@@ -1,0 +1,6 @@
+[
+  "event OtcDealCreated(uint256 indexed dealId, address indexed deal, address indexed buyer, address seller, address tradeToken, uint256 usdtAmount, uint256 tokenAmount, bytes32 termsHash)",
+  "function createOtcDeal(address buyer, address seller, address tradeToken, uint256 usdtAmount, uint256 tokenAmount, uint64 fundingDeadline, uint16 feeBps, address feeRecipient, bytes32 termsHash) returns (uint256 dealId, address deal)",
+  "function deals(uint256) view returns (address)",
+  "function usdt() view returns (address)"
+]

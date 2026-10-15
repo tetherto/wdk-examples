@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <defs>
+    <linearGradient id="accent" x1="16" y1="12" x2="112" y2="116" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00e5a0"/>
+      <stop offset="1" stop-color="#00b87a"/>
+    </linearGradient>
+    <linearGradient id="accentSoft" x1="64" y1="24" x2="64" y2="104" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00e5a0" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#00e5a0" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="bg" cx="38" cy="28" r="78" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1c2233"/>
+      <stop offset="0.55" stop-color="#10141f"/>
+      <stop offset="1" stop-color="#0a0a0f"/>
+    </radialGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- App icon base -->
+  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
+  <rect x="2" y="2" width="124" height="124" rx="26" stroke="url(#accent)" stroke-opacity="0.22" stroke-width="1.5"/>
+  <!-- Shield -->
+  <path
+    d="M64 30 L90 41.5 V59.5 C90 74.5 64 96 64 96 C64 96 38 74.5 38 59.5 V41.5 L64 30 Z"
+    fill="url(#accentSoft)"
+  />
+  <path
+    d="M64 34 L86 43.8 V58.8 C86 71.2 64 90 64 90 C64 90 42 71.2 42 58.8 V43.8 L64 34 Z"
+    stroke="url(#accent)"
+    stroke-width="2.75"
+    stroke-linejoin="round"
+  />
+  <!-- Monogram S -->
+  <g filter="url(#glow)">
+    <path
+      fill="url(#accent)"
+      d="M76.5 48.2c0-8.6-6.8-14-16.5-14-10.2 0-17.2 5.8-17.2 14.4 0 7.6 5.8 11.8 16 14.2 11.4 2.5 18.4 6.8 18.4 15.6 0 9.2-8 16.6-19.2 16.6-11.8 0-19.8-5.6-20.4-14.2h10.8c.5 4.6 4.2 7.4 9.6 7.4 5.8 0 9.4-2.8 9.4-7 0-4.2-3.6-6.6-12.2-9-11.8-2.8-19.4-7.8-19.4-17.4 0-10.2 8.4-17.2 20.8-17.2 12.2 0 19.8 6.6 19.8 16.2H76.5z"
+    />
+  </g>
+  <!-- Status dot (matches in-app logo mark) -->
+  <circle cx="93" cy="35" r="5.25" fill="#00e5a0"/>
+  <circle cx="93" cy="35" r="5.25" fill="#00e5a0" fill-opacity="0.45"/>
+</svg>

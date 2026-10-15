@@ -16,6 +16,7 @@ Each folder contains small runnable examples for one WDK package or integration.
 | [wallet-tron](./wallet-tron/) | `@tetherto/wdk-wallet-tron` | TRON wallets, balances, transactions, TRC20 tokens, signing, and fees |
 | [mcp-toolkit](./mcp-toolkit/) | `@tetherto/wdk-mcp-toolkit` | MCP server and LangChain agent examples for WDK tools |
 | [walletconnect-walletkit](./walletconnect-walletkit/) | `@reown/walletkit` + WDK | Self-contained dApp ↔ wallet signing flow |
+| [browser-extension-sovereign-wallet](./browser-extension-sovereign-wallet/) | Multi-package | Chrome MV3 browser extension starter (EVM, Bitcoin, Solana) |
 
 ## Run
 
@@ -41,6 +42,8 @@ npm run example:create-wallet
 ```
 
 Each sub-repo has its own `package.json` with only the dependencies it needs. See the README in each folder for available examples.
+
+**Browser extension:** `cd browser-extension-sovereign-wallet && npm install && npm run build:prod`, then load `dist/` in Chrome/Brave.
 
 Most transaction examples quote by default. Set `ACTUALLY_SEND=true` in `.env` only when using a funded test wallet.
 
