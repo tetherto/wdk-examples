@@ -17,6 +17,17 @@ Each folder contains small runnable examples for one WDK package or integration.
 | [mcp-toolkit](./mcp-toolkit/) | `@tetherto/wdk-mcp-toolkit` | MCP server and LangChain agent examples for WDK tools |
 | [walletconnect-walletkit](./walletconnect-walletkit/) | `@reown/walletkit` + WDK | Self-contained dApp ↔ wallet signing flow |
 
+## Community projects
+
+Open-source projects built with WDK by the community:
+
+| Project | Description |
+|---------|-------------|
+| [wdk-wallet-extension](https://github.com/plinkdev1/wdk-wallet-extension) | Self-custodial, MetaMask-style browser-extension wallet (MV3, Chrome/Brave) — multi-chain, multi-account, dApp connectivity (EIP-1193/6963). |
+| [wdk-wallet-template](https://github.com/plinkdev1/wdk-wallet-template) | Production-ready Next.js starter wallet — worklet key custody, onboarding, multi-chain balances, send/receive, transaction history. |
+| [wdk-checkout-and-woocommerce-plugin](https://github.com/plinkdev1/wdk-checkout-and-woocommerce-plugin) | WDK Pay — self-custodial USDt checkout for WooCommerce, plus a framework-free headless widget and on-chain payment verifier. |
+| [wdk-protocol-eip3009](https://github.com/plinkdev1/wdk-protocol-eip3009) | Gasless EIP-3009 `transferWithAuthorization` protocol module — Node + Bare, brittle-tested, published to npm. |
+
 ## Run
 
 **1. Install root dependencies and set up the environment:**
