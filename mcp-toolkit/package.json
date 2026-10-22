@@ -15,7 +15,7 @@
     "@langchain/mcp-adapters": "^1.1.3",
     "@langchain/openai": "^1.4.4",
     "@langchain/anthropic": "^1.3.27",
-    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@modelcontextprotocol/sdk": "^1.32.0",
     "@tetherto/wdk-mcp-toolkit": "git+https://github.com/tetherto/wdk-mcp-toolkit.git",
     "@tetherto/wdk-wallet": "1.0.0-beta.9",
     "@tetherto/wdk-protocol-bridge-usdt0-evm": "^1.0.0-beta.3",
