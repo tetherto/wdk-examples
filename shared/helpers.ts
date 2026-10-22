@@ -25,6 +25,10 @@ export function formatTokenBalance(balance: bigint, decimals: number, symbol: st
   return `${value} ${symbol} (${balance} base units)`
 }
 
+export function formatBermudaAddress(address: string): string {
+  return `${address.slice(0, 10)}…${address.slice(-8)} (${address.length - 2} hex chars)`
+}
+
 export function logResult(label: string, data: unknown): void {
   console.log(`\n--- ${label} ---`)
   if (typeof data === 'object' && data !== null) {
