@@ -1,0 +1,55 @@
+{
+  "manifest_version": 3,
+  "name": "Sovereign Wallet",
+  "version": "1.0.1",
+  "description": "Multi-chain browser wallet (WDK). Keys stay on device.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "Sovereign Wallet"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*/*",
+        "http://localhost/*",
+        "http://127.0.0.1/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "permissions": [
+    "storage",
+    "alarms",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://*.drpc.org/*",
+    "https://btc1.trezor.io/*",
+    "https://api.mainnet-beta.solana.com/*",
+    "https://solana-rpc.publicnode.com/*",
+    "https://api.coingecko.com/*",
+    "https://rpc-amoy.polygon.technology/*",
+    "https://polygon.drpc.org/*",
+    "https://bsc-dataseed.binance.org/*",
+    "https://*.binance.org/*"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; img-src 'self' data:; connect-src 'self' https://*.drpc.org https://*.binance.org https://bsc-dataseed.binance.org https://btc1.trezor.io https://api.mainnet-beta.solana.com https://solana-rpc.publicnode.com https://api.coingecko.com https://rpc-amoy.polygon.technology https://polygon.drpc.org"
+  }
+}
