@@ -14,7 +14,6 @@ Each folder contains small runnable examples for one WDK package or integration.
 | [wallet-solana](./wallet-solana/) | `@tetherto/wdk-wallet-solana` | Solana wallets, balances, transactions, SPL tokens, signing, and fees |
 | [wallet-ton](./wallet-ton/) | `@tetherto/wdk-wallet-ton` | TON wallets, balances, transactions, Jettons, signing, and fees |
 | [wallet-tron](./wallet-tron/) | `@tetherto/wdk-wallet-tron` | TRON wallets, balances, transactions, TRC20 tokens, signing, and fees |
-| [mcp-toolkit](./mcp-toolkit/) | `@tetherto/wdk-mcp-toolkit` | MCP server and LangChain agent examples for WDK tools |
 | [walletconnect-walletkit](./walletconnect-walletkit/) | `@reown/walletkit` + WDK | Self-contained dApp ↔ wallet signing flow |
 
 ## Run
@@ -53,7 +52,6 @@ Most transaction examples quote by default. Set `ACTUALLY_SEND=true` in `.env` o
 - [Solana API Reference](https://docs.wdk.tether.io/sdk/wallet-modules/wallet-solana/api-reference)
 - [TON API Reference](https://docs.wdk.tether.io/sdk/wallet-modules/wallet-ton/api-reference)
 - [TRON API Reference](https://docs.wdk.tether.io/sdk/wallet-modules/wallet-tron/api-reference)
-- [MCP Toolkit API Reference](https://docs.wdk.tether.io/ai/mcp-toolkit/api-reference)
 
 ## License
 
