@@ -1,0 +1,11 @@
+[
+  "function acceptTerms()",
+  "function depositUsdt()",
+  "function depositToken()",
+  "function settle()",
+  "function claimRefund()",
+  "function requestCancel()",
+  "function getStatus() view returns (uint8 currentState, bool buyerOk, bool sellerOk, bool usdtIn, bool tokenIn, uint64 fundingDeadline)",
+  "function terms() view returns (address buyer, address seller, address usdt, address tradeToken, uint256 usdtAmount, uint256 tokenAmount, uint64 fundingDeadline, uint16 feeBps, address feeRecipient, bytes32 termsHash)",
+  "event Settled(address indexed buyer, address indexed seller, uint256 fee)"
+]
