@@ -16,6 +16,12 @@ Each folder contains small runnable examples for one WDK package or integration.
 | [wallet-tron](./wallet-tron/) | `@tetherto/wdk-wallet-tron` | TRON wallets, balances, transactions, TRC20 tokens, signing, and fees |
 | [walletconnect-walletkit](./walletconnect-walletkit/) | `@reown/walletkit` + WDK | Self-contained dApp ↔ wallet signing flow |
 
+## Starters and Templates
+
+| Starter | Stack | Description |
+|---------|-------|-------------|
+| [Browser Extension Wallet Starter](https://github.com/OxFrancesco/wdk-browser-extension-starter) | WXT, React, TypeScript, Chrome Manifest V3 | Chrome and Brave wallet extension starter with encrypted vault storage, multi-wallet and multi-account flows, address validation, send/receive UI, and browser E2E coverage |
+
 ## Run
 
 **1. Install root dependencies and set up the environment:**
